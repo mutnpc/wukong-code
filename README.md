@@ -17,7 +17,7 @@ command line.
 ### macOS / Linux
 
 ```bash
-curl -fsSL https://wukong.today/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/mutnpc/wukong-cli/main/install.sh | sh
 ```
 
 Or download the latest binary for your platform from the
