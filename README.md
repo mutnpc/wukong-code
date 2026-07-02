@@ -1,115 +1,102 @@
 # Wukong CLI
 
-Wukong CLI is a powerful terminal tool that helps you interact with [Wukong](https://wukong.today) directly from your command line. Sync your data, manage your workflow, and stay productive — all without leaving your terminal.
+Wukong CLI is a local-first terminal AI agent. It runs on your machine, works
+with your existing codebase, and helps you write, verify, and ship code from the
+command line.
 
-Learn more in the [official documentation](https://docs.wukong.today).
+- **Local-first**: your code and sessions stay on your device by default.
+- **Terminal-native**: launch an interactive TUI or run one-off prompts without
+  leaving your shell.
+- **Built for AI-generated code**: verify changes, scan for risks, and guard
+  against risky commands before you commit.
 
 ---
 
-## Get Started
+## Install
 
-### Installation
-
-**npm (Recommended):**
+### macOS / Linux
 
 ```bash
-npm install -g @wukong.today/wukong-cli
+curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-**Homebrew (macOS/Linux):**
+Or download the latest binary for your platform from the
+[releases page](https://github.com/mutnpc/wukong-cli/releases).
 
-```bash
-brew install wukong-cli
-```
+### Windows
 
-**Verify installation:**
+Download the latest `.exe` from the
+[releases page](https://github.com/mutnpc/wukong-cli/releases) and place it on
+your `PATH`.
+
+### Verify
 
 ```bash
 wukong --version
 ```
 
-### Quick Start
+---
 
-1. **Login to your account:**
+## Quick start
 
-   ```bash
-   wukong login
-   ```
+```bash
+# Start the interactive TUI
+wukong
 
-2. **Sync your data:**
+# Run a one-off prompt
+wukong -p "explain this repository"
 
-   ```bash
-   wukong sync --pull
-   ```
+# Verify current changes before committing
+wukong verify
 
-3. **Start interactive mode:**
+# Scan for delivery risks
+wukong scan
 
-   ```bash
-   wukong
-   ```
+# Check guard status
+wukong guard --status
+```
 
 ---
 
-## Commands
+## Current commands
 
 | Command | Description |
-|---------|-------------|
-| `wukong` | Launch interactive mode |
-| `wukong login` | Authenticate with your Wukong account |
-| `wukong logout` | Sign out of your account |
-| `wukong sync` | Sync data with Wukong cloud |
-| `wukong config` | Manage CLI configuration |
+|---|---|
+| `wukong` | Launch the interactive TUI |
+| `wukong -p <prompt>` | Run a single prompt and print the result |
+| `wukong provider` | Manage LLM providers |
+| `wukong login` | Authenticate via device-code flow |
+| `wukong verify` | Run deterministic checks and write an evidence report |
+| `wukong scan` | Scan git changes for delivery risks |
+| `wukong guard` | Inspect or run the command risk guard |
+| `wukong server` | Start the local REST/WebSocket server |
+| `wukong web` | Open the local web UI |
+| `wukong doctor` | Validate configuration files |
+| `wukong export [sessionId]` | Export a session ZIP |
+| `wukong vis [sessionId]` | Open the session visualizer |
+| `wukong migrate` | Migrate legacy Wukong data |
+| `wukong upgrade` | Upgrade to the latest version |
 
-For a full list of commands:
-
-```bash
-wukong --help
-```
-
----
-
-## Configuration
-
-Wukong CLI stores configuration in `~/.wukong/config.json`. You can also set environment variables:
-
-| Variable | Description |
-|----------|-------------|
-| `WUKONG_API_KEY` | Your API key for authentication |
-| `WUKONG_ENDPOINT` | Custom API endpoint (optional) |
+Run `wukong --help` for the full option list.
 
 ---
 
-## Reporting Bugs
+## Documentation
 
-We welcome your feedback! Use the `/bug` command to report issues directly within Wukong CLI, or file a [GitHub issue](https://github.com/mutnpc/wukong-cli/issues).
-
-```bash
-wukong bug
-```
+- [Getting started](./docs/getting-started.md)
+- [Command reference](./docs/commands.md)
+- [Configuration](./docs/configuration.md)
 
 ---
 
-## Connect with Us
+## Support
 
-- **Website:** [wukong.today](https://wukong.today)
-- **Documentation:** [docs.wukong.today](https://docs.wukong.today)
-- **Discord:** [Join our community](https://discord.gg/wukong)
-- **Email:** support@wukong.today
+- Website: [wukong.today](https://wukong.today)
+- Issues: [github.com/mutnpc/wukong-cli/issues](https://github.com/mutnpc/wukong-cli/issues)
+- Email: [support@wukong.today](mailto:support@wukong.today)
 
 ---
 
-## Data Collection &amp; Privacy
+## License
 
-When you use Wukong CLI, we collect usage data to improve the product experience. This includes:
-
-- Command usage statistics
-- Error reports and crash logs
-- Performance metrics
-
-We do **not** collect:
-
-- Your personal files or code content
-- Passwords or sensitive credentials
-- Data that you explicitly mark as private
-
-For more details, see our [Privacy Policy](https://wukong.today/privacy).
+This is proprietary software. See [LICENSE.md](./LICENSE.md).

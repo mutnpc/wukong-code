@@ -1,39 +1,27 @@
 # Changelog
 
-All notable changes to Wukong CLI will be documented in this file.
+All notable changes to the public Wukong CLI distribution will be documented in
+this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
 ## [Unreleased]
 
-### Added
-- Initial public release preparation
-
----
+### Changed
+- Public documentation updated to reflect the current Wukong CLI command surface
+  built on the Kimi-code base: interactive TUI, prompt mode, verification,
+  scanning, guard, provider management, local server/web UI, and more.
 
 ## [1.0.0] - 2026-02-03
 
 ### Added
-- `wukong login` - Authenticate with your Wukong account
-- `wukong logout` - Sign out of your account
-- `wukong sync` - Sync data with Wukong cloud
-  - `--pull` flag for pulling remote data
-  - `--push` flag for pushing local changes
-- `wukong config` - Manage CLI configuration
-- `wukong bug` - Report bugs directly from CLI
-- Interactive mode with `wukong` command
-- Environment variable support for configuration
-- Cross-platform support (macOS, Linux, Windows)
+- Legacy public release preparation covering login, sync, config, and bug
+  reporting commands.
 
-### Security
-- Secure credential storage using system keychain
-- API key encryption at rest
-
----
-
-<!-- 
+<!--
 Template for future releases:
 
 ## [X.Y.Z] - YYYY-MM-DD

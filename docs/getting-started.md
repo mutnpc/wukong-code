@@ -1,96 +1,73 @@
----
-layout: default
-title: Getting Started
-nav_order: 2
-permalink: /getting-started
----
-
 # Getting Started
 
-This guide will help you install and start using Wukong CLI.
+## Requirements
 
-## Prerequisites
+- **macOS**, **Linux**, or **Windows**
+- A local workspace directory with your project code
+- An API key for your chosen LLM provider (Wukong CLI supports multiple
+  providers; managed Wukong auth is optional)
 
-- **Node.js** 18.0.0 or higher
-- **npm** 9.0.0 or higher
-- A Wukong account ([Sign up](https://wukong.today/signup))
+## Install
 
-## Installation
-
-### npm (Recommended)
-
-```bash
-npm install -g @wukong.today/wukong-cli
-```
-
-### Homebrew (macOS/Linux)
+### macOS / Linux
 
 ```bash
-brew install wukong-cli
+curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-### Verify Installation
+### Windows
+
+Download the latest `.exe` from the
+[releases page](https://github.com/mutnpc/wukong-cli/releases) and place it on
+your `PATH`.
+
+### Verify
 
 ```bash
 wukong --version
 ```
 
-## First Steps
+## First steps
 
-### 1. Login to Your Account
-
-```bash
-wukong login
-```
-
-This will open your browser for authentication. Once completed, your credentials will be securely stored.
-
-### 2. Verify Connection
+### 1. Add a provider
 
 ```bash
-wukong status
+wukong provider
 ```
 
-### 3. Sync Your Data
+Follow the prompts to configure an LLM provider.
 
-```bash
-wukong sync --pull
-```
-
-### 4. Explore Interactive Mode
+### 2. Start the interactive TUI
 
 ```bash
 wukong
 ```
 
-## Next Steps
+Type a task and press Enter:
 
-- Learn about [all available commands](./commands.md)
-- Configure your [settings](./configuration.md)
-- Join our [Discord community](https://discord.gg/wukong)
-
-## Troubleshooting
-
-### Command not found
-
-If you see "command not found" after installation:
-
-```bash
-# Check npm global bin path
-npm bin -g
-
-# Add to your PATH if needed
-export PATH="$(npm bin -g):$PATH"
+```text
+explain the main modules in this project
 ```
 
-### Authentication Issues
+### 3. Run a one-off prompt
 
 ```bash
-# Clear stored credentials
-wukong logout
-
-# Login again
-wukong login
+wukong -p "summarize this repository"
 ```
 
-For more help, visit [SUPPORT.md](../SUPPORT.md).
+### 4. Verify changes before committing
+
+```bash
+wukong verify
+```
+
+### 5. Scan for risks
+
+```bash
+wukong scan
+```
+
+## Next steps
+
+- Read the [command reference](./commands.md)
+- Learn about [configuration](./configuration.md)

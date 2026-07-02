@@ -1,132 +1,170 @@
----
-layout: default
-title: Command Reference
-nav_order: 3
-permalink: /commands
----
-
 # Command Reference
 
-Complete reference for all Wukong CLI commands.
+Complete reference for the current Wukong CLI command surface.
 
-## Global Options
-
-These options are available for all commands:
-
-| Option | Description |
-|--------|-------------|
-| `--help`, `-h` | Show help information |
-| `--version`, `-v` | Show version number |
-| `--verbose` | Enable verbose output |
-| `--quiet`, `-q` | Suppress non-error output |
-| `--config <path>` | Use custom config file |
+Run `wukong --help` for the most up-to-date options.
 
 ---
 
-## Core Commands
+## Global options
+
+| Option | Description |
+|---|---|
+| `-h, --help` | Show help |
+| `-V, --version` | Show version |
+| `-p, --prompt <prompt>` | Run one prompt non-interactively |
+| `-c, --continue` | Continue the previous session for the working directory |
+| `-S, --session [id]` | Resume a session |
+| `--yes, --yolo` | Automatically approve all actions |
+| `--plan` | Start in plan mode |
+
+---
+
+## Core commands
 
 ### `wukong`
 
-Launch interactive mode.
+Launch the interactive TUI.
 
 ```bash
 wukong
 ```
 
+### `wukong -p <prompt>`
+
+Run a single prompt and print the response.
+
+```bash
+wukong -p "explain the project structure"
+```
+
+### `wukong provider`
+
+Manage LLM providers.
+
+```bash
+wukong provider
+wukong provider --help
+```
+
 ### `wukong login`
 
-Authenticate with your Wukong account.
+Authenticate via the device-code flow.
 
 ```bash
 wukong login
-wukong login --api-key <key>    # Use API key instead of browser
-```
-
-### `wukong logout`
-
-Sign out and clear stored credentials.
-
-```bash
-wukong logout
-```
-
-### `wukong status`
-
-Check connection and account status.
-
-```bash
-wukong status
 ```
 
 ---
 
-## Sync Commands
+## Verification commands
 
-### `wukong sync`
+### `wukong verify`
 
-Synchronize data with Wukong cloud.
+Run deterministic checks on the current workspace and write an evidence report.
 
 ```bash
-wukong sync              # Two-way sync
-wukong sync --pull       # Pull remote changes
-wukong sync --push       # Push local changes
-wukong sync --force      # Force sync (override conflicts)
+wukong verify
+wukong verify --build
+wukong verify --command "pnpm test"
+wukong verify --json
+wukong verify --no-report
 ```
 
-**Options:**
+### `wukong scan`
 
-| Option | Description |
-|--------|-------------|
-| `--pull` | Only pull remote data |
-| `--push` | Only push local changes |
-| `--force` | Force sync, override conflicts |
-| `--dry-run` | Preview changes without applying |
-
----
-
-## Configuration Commands
-
-### `wukong config`
-
-Manage CLI configuration.
+Read-only risk scan of git changes.
 
 ```bash
-wukong config list              # List all settings
-wukong config get <key>         # Get a setting value
-wukong config set <key> <value> # Set a setting value
-wukong config reset             # Reset to defaults
+wukong scan
+wukong scan --json
+wukong scan --report ./reports/risk.md
 ```
 
----
+### `wukong guard`
 
-## Utility Commands
-
-### `wukong bug`
-
-Report a bug directly from CLI.
+Inspect or run the command risk guard.
 
 ```bash
-wukong bug
-```
-
-### `wukong update`
-
-Check for and install updates.
-
-```bash
-wukong update          # Check for updates
-wukong update --force  # Force reinstall latest
+wukong guard --status
+wukong guard --stats
+wukong guard --enable
+wukong guard --disable
+wukong guard -- rm -rf ./tmp
 ```
 
 ---
 
-## Exit Codes
+## Server and web commands
+
+### `wukong server`
+
+Start the local REST/WebSocket server.
+
+```bash
+wukong server run --foreground
+```
+
+### `wukong web`
+
+Open the local web UI.
+
+```bash
+wukong web
+```
+
+---
+
+## Utility commands
+
+### `wukong doctor`
+
+Validate configuration files.
+
+```bash
+wukong doctor
+```
+
+### `wukong export [sessionId]`
+
+Export a session as a ZIP file.
+
+```bash
+wukong export
+wukong export <session-id>
+```
+
+### `wukong vis [sessionId]`
+
+Open the session visualizer.
+
+```bash
+wukong vis
+wukong vis <session-id>
+```
+
+### `wukong migrate`
+
+Migrate legacy Wukong data.
+
+```bash
+wukong migrate
+```
+
+### `wukong upgrade`
+
+Upgrade to the latest version.
+
+```bash
+wukong upgrade
+```
+
+---
+
+## Exit codes
 
 | Code | Meaning |
-|------|---------|
+|---|---|
 | 0 | Success |
-| 1 | General error |
-| 2 | Invalid arguments |
-| 3 | Authentication error |
-| 4 | Network error |
-| 5 | Sync conflict |
+| 1 | Command failure or high-risk verification result |
+| 2 | Invalid arguments or environment error |
