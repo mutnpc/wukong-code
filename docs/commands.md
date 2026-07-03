@@ -7,27 +7,24 @@ permalink: /commands/
 
 # Command Reference
 
-Complete reference for the current Wukong Code command surface.
-
+{: .highlight }
 Run `wukong --help` for the most up-to-date options.
 
----
-
-## Global options
+## Global Options
 
 | Option | Description |
 |---|---|
 | `-h, --help` | Show help |
 | `-V, --version` | Show version |
 | `-p, --prompt <prompt>` | Run one prompt non-interactively |
-| `-c, --continue` | Continue the previous session for the working directory |
+| `-c, --continue` | Continue the previous session |
 | `-S, --session [id]` | Resume a session |
 | `--yes, --yolo` | Automatically approve all actions |
 | `--plan` | Start in plan mode |
 
 ---
 
-## Core commands
+## Core Commands
 
 ### `wukong`
 
@@ -51,7 +48,6 @@ Manage LLM providers.
 
 ```bash
 wukong provider
-wukong provider --help
 ```
 
 ### `wukong login`
@@ -64,7 +60,7 @@ wukong login
 
 ---
 
-## Verification commands
+## Verification Commands
 
 ### `wukong verify`
 
@@ -102,7 +98,7 @@ wukong guard -- rm -rf ./tmp
 
 ---
 
-## Server and web commands
+## Server & Web Commands
 
 ### `wukong server`
 
@@ -122,7 +118,7 @@ wukong web
 
 ---
 
-## Utility commands
+## Utility Commands
 
 ### `wukong doctor`
 
@@ -168,10 +164,10 @@ wukong upgrade
 
 ---
 
-## Exit codes
+## Exit Codes
 
 | Code | Meaning |
 |---|---|
-| 0 | Success |
-| 1 | Command failure or high-risk verification result |
-| 2 | Invalid arguments or environment error |
+| `0` | Success |
+| `1` | Command failure or high-risk verification |
+| `2` | Invalid arguments or environment error |

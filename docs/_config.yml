@@ -1,18 +1,32 @@
 title: Wukong Code
-description: Official documentation for Wukong Code — terminal AI coding agent
-remote_theme: pages-themes/cayman@v0.2.0
+description: Terminal AI coding agent — launch an interactive TUI or run one-off prompts without leaving your shell.
+remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
 
-# Navigation
-header_pages:
-  - index.md
-  - getting-started.md
-  - commands.md
-  - configuration.md
+# Theme settings
+color_scheme: dark
+search_enabled: true
+search.heading_level: 2
+heading_anchors: true
 
-# Footer links
-github_repo: mutnpc/wukong-code
+# Navigation
+nav_sort: case_sensitive
+nav_external_links:
+  - title: GitHub
+    url: https://github.com/mutnpc/wukong-code
+    hide_icon: false
+  - title: Website
+    url: https://wukong.today
+    hide_icon: false
+
+# Aux links (top right)
+aux_links:
+  "Wukong Code on GitHub":
+    - "https://github.com/mutnpc/wukong-code"
+
+# Footer
+footer_content: "&copy; Wukong Code. Built with <a href=\"https://just-the-docs.com\">Just the Docs</a>."
 
 # SEO
 url: https://docs.wukong.today

@@ -7,8 +7,7 @@ permalink: /configuration/
 
 # Configuration
 
-Wukong Code stores configuration and data under `~/.wukong`. The exact format is
-defined by the current CLI release; common files include:
+Wukong Code stores configuration and data under `~/.wukong`.
 
 ```text
 ~/.wukong/
@@ -17,7 +16,7 @@ defined by the current CLI release; common files include:
   credentials/
 ```
 
-## Environment variables
+## Environment Variables
 
 | Variable | Description |
 |---|---|
@@ -25,15 +24,17 @@ defined by the current CLI release; common files include:
 | `WUKONG_CODE_PROVIDER_NAME` | Default provider name |
 | `WUKONG_CODE_CUSTOM_HEADERS` | Custom outbound LLM request headers |
 
-### Example: use a temporary data directory
+### Example
 
 ```bash
 WUKONG_HOME=/tmp/wukong-test wukong doctor
 ```
 
-## Configure providers
+---
 
-Use the provider command:
+## Configure Providers
+
+Use the interactive provider command:
 
 ```bash
 wukong provider
@@ -41,7 +42,12 @@ wukong provider
 
 Or edit `~/.wukong/config.toml` directly.
 
-## Configuration priority
+---
+
+## Configuration Priority
+
+{: .note }
+Settings are resolved in order — later sources override earlier ones.
 
 1. Built-in defaults
 2. Config files in `WUKONG_HOME`

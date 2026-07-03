@@ -11,8 +11,10 @@ permalink: /getting-started/
 
 - **macOS**, **Linux**, or **Windows**
 - A local workspace directory with your project code
-- An API key for your chosen LLM provider (Wukong Code supports multiple
-  providers; managed Wukong Code auth is optional)
+- An API key for your chosen LLM provider
+
+{: .note }
+Wukong Code supports multiple providers — managed auth is optional. You can bring your own keys.
 
 ## Install
 
@@ -34,17 +36,19 @@ your `PATH`.
 wukong --version
 ```
 
-## First steps
+---
 
-### 1. Add a provider
+## First Steps
+
+### 1. Add a Provider
 
 ```bash
 wukong provider
 ```
 
-Follow the prompts to configure an LLM provider.
+Follow the interactive prompts to configure an LLM provider.
 
-### 2. Start the interactive TUI
+### 2. Launch the TUI
 
 ```bash
 wukong
@@ -56,25 +60,27 @@ Type a task and press Enter:
 explain the main modules in this project
 ```
 
-### 3. Run a one-off prompt
+### 3. Run a One-off Prompt
 
 ```bash
 wukong -p "summarize this repository"
 ```
 
-### 4. Verify changes before committing
+### 4. Verify Changes
 
 ```bash
 wukong verify
 ```
 
-### 5. Scan for risks
+### 5. Scan for Risks
 
 ```bash
 wukong scan
 ```
 
-## Next steps
+---
 
-- Read the [command reference](./commands.md)
-- Learn about [configuration](./configuration.md)
+## Next Steps
+
+- Browse the [command reference](/commands)
+- Learn about [configuration options](/configuration)
