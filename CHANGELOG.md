@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the public Wukong CLI distribution will be documented in
+All notable changes to the public Wukong Code distribution will be documented in
 this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -11,36 +11,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Public documentation updated to reflect the current Wukong CLI command surface
-  built on the Kimi-code base: interactive TUI, prompt mode, verification,
-  scanning, guard, provider management, local server/web UI, and more.
+- Product name unified to **Wukong Code** across documentation, website, and CLI metadata.
+- Public repository renamed to `mutnpc/wukong-code`; release binaries continue to be published here.
+- Installation script (`install.sh`) updated to pull from the `wukong-code` release feed.
+- CLI User-Agent updated to `wukong-code`.
 
-## [1.0.0] - 2026-02-03
-
-### Added
-- Legacy public release preparation covering login, sync, config, and bug
-  reporting commands.
-
-<!--
-Template for future releases:
-
-## [X.Y.Z] - YYYY-MM-DD
+## [0.0.1] - 2026-07-03
 
 ### Added
-- New features
+- Initial public release of Wukong Code as a local-first terminal AI coding agent.
+- Interactive TUI (`wukong`) and one-off prompt mode (`wukong -p`).
+- Verification suite: `wukong verify`, `wukong scan`, `wukong guard`.
+- Provider management (`wukong provider`) with built-in support for DeepSeek, Moonshot, OpenAI-compatible providers, and more.
+- Local web UI (`wukong web`) and REST/WebSocket server (`wukong server`).
+- ACP server mode (`wukong acp`), session export, session visualizer, and legacy migration.
+- Native binary distribution for macOS, Linux, and Windows.
 
-### Changed
-- Changes in existing functionality
+### Notes
+- This public release corresponds to the implementation work in the internal `mutnpc/wukong_cli` repository.
+- No API keys are bundled with the binary; users bring their own model provider keys.
 
-### Deprecated
-- Soon-to-be removed features
+---
 
-### Removed
-- Removed features
+## Legacy history
 
-### Fixed
-- Bug fixes
+### [1.0.0] - 2026-02-03
 
-### Security
-- Vulnerability fixes
--->
+### Added
+- Legacy public release preparation covering login, sync, config, and bug reporting commands.
