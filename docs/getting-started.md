@@ -18,15 +18,11 @@ Wukong Code supports multiple providers — managed auth is optional. You can br
 
 ## Install
 
-### macOS / Linux
-
 ```bash
 curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-### Windows
-
-Download the latest `.exe` from the
+For Windows, download the latest `.exe` from the
 [releases page](https://github.com/mutnpc/wukong-code/releases) and place it on
 your `PATH`.
 
@@ -40,15 +36,17 @@ wukong --version
 
 ## First Steps
 
-### 1. Add a Provider
+### `wukong provider`
+
+Configure an LLM provider interactively:
 
 ```bash
 wukong provider
 ```
 
-Follow the interactive prompts to configure an LLM provider.
+### `wukong`
 
-### 2. Launch the TUI
+Launch the interactive TUI:
 
 ```bash
 wukong
@@ -60,19 +58,25 @@ Type a task and press Enter:
 explain the main modules in this project
 ```
 
-### 3. Run a One-off Prompt
+### `wukong -p <prompt>`
+
+Run a one-off prompt:
 
 ```bash
 wukong -p "summarize this repository"
 ```
 
-### 4. Verify Changes
+### `wukong verify`
+
+Run deterministic checks and write an evidence report:
 
 ```bash
 wukong verify
 ```
 
-### 5. Scan for Risks
+### `wukong scan`
+
+Scan git changes for delivery risks:
 
 ```bash
 wukong scan
