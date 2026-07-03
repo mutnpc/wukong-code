@@ -2,7 +2,7 @@
 set -eu
 
 REPO_OWNER="mutnpc"
-REPO_NAME="wukong-cli"
+REPO_NAME="wukong-code"
 INSTALL_DIR="${WUKONG_INSTALL_DIR:-$HOME/.wukong/bin}"
 BINARY_NAME="wukong"
 
@@ -61,7 +61,7 @@ fi
 
 RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${VERSION}/${ARTIFACT}"
 
-echo "Installing Wukong CLI ${VERSION} for ${TARGET}..."
+echo "Installing Wukong Code ${VERSION} for ${TARGET}..."
 echo "Download URL: ${RELEASE_URL}"
 
 TMP_DIR="$(mktemp -d)"
@@ -74,7 +74,7 @@ unzip -o "${TMP_DIR}/${ARTIFACT}" -d "$INSTALL_DIR"
 chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
 
 echo ""
-echo "Wukong CLI installed to: ${INSTALL_DIR}/${BINARY_NAME}"
+echo "Wukong Code installed to: ${INSTALL_DIR}/${BINARY_NAME}"
 
 # POSIX-compatible PATH check
 case ":${PATH}:" in
