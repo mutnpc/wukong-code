@@ -16,17 +16,23 @@ permalink: /getting-started/
 {: .note }
 Wukong Code supports multiple providers — managed auth is optional. You can bring your own keys.
 
+---
+
 ## Install
+
+### `curl -fsSL https://wukong.today/install.sh | sh`
+
+Install on macOS or Linux:
 
 ```bash
 curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-For Windows, download the latest `.exe` from the
-[releases page](https://github.com/mutnpc/wukong-code/releases) and place it on
-your `PATH`.
+For Windows, download the latest `.exe` from the [releases page](https://github.com/mutnpc/wukong-code/releases) and place it on your `PATH`.
 
-### Verify
+### `wukong --version`
+
+Verify the installation:
 
 ```bash
 wukong --version
