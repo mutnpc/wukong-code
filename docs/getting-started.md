@@ -7,18 +7,20 @@ permalink: /getting-started/
 
 # Getting Started
 
+---
+
 ## Requirements
 
 - **macOS**, **Linux**, or **Windows**
-- A local workspace directory with your project code
-- An API key for your chosen LLM provider
+- A local workspace directory
+- An API key for your LLM provider
 
 {: .note }
-Wukong Code supports multiple providers — managed auth is optional. You can bring your own keys.
+Wukong Code supports multiple providers — managed auth is optional. Bring your own keys.
 
 ---
 
-## Install
+## Install & Verify
 
 ### `curl -fsSL https://wukong.today/install.sh | sh`
 
@@ -28,7 +30,7 @@ Install on macOS or Linux:
 curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-For Windows, download the latest `.exe` from the [releases page](https://github.com/mutnpc/wukong-code/releases) and place it on your `PATH`.
+For Windows, download the `.exe` from the [releases page](https://github.com/mutnpc/wukong-code/releases).
 
 ### `wukong --version`
 
@@ -40,11 +42,11 @@ wukong --version
 
 ---
 
-## First Steps
+## Core Workflow
 
 ### `wukong provider`
 
-Configure an LLM provider interactively:
+Configure an LLM provider:
 
 ```bash
 wukong provider
@@ -58,12 +60,6 @@ Launch the interactive TUI:
 wukong
 ```
 
-Type a task and press Enter:
-
-```text
-explain the main modules in this project
-```
-
 ### `wukong -p <prompt>`
 
 Run a one-off prompt:
@@ -72,9 +68,13 @@ Run a one-off prompt:
 wukong -p "summarize this repository"
 ```
 
+---
+
+## Verification
+
 ### `wukong verify`
 
-Run deterministic checks and write an evidence report:
+Run checks and write an evidence report:
 
 ```bash
 wukong verify
@@ -86,6 +86,14 @@ Scan git changes for delivery risks:
 
 ```bash
 wukong scan
+```
+
+### `wukong guard`
+
+Inspect risky commands before execution:
+
+```bash
+wukong guard --status
 ```
 
 ---
