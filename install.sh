@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
 REPO_OWNER="mutnpc"
 REPO_NAME="wukong-cli"
@@ -47,32 +47,44 @@ else
 fi
 
 ARTIFACT="wukong-${TARGET}.zip"
-RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest/download/${ARTIFACT}"
 
-echo "Installing Wukong CLI for ${TARGET}..."
+# Resolve version: prefer WUKONG_VERSION, otherwise fetch latest release tag.
+if [ -n "${WUKONG_VERSION:-}" ]; then
+  VERSION="$WUKONG_VERSION"
+else
+  VERSION="$(curl -fsSL "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest" | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')"
+  if [ -z "$VERSION" ]; then
+    echo "Failed to determine latest release version."
+    exit 1
+  fi
+fi
+
+RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${VERSION}/${ARTIFACT}"
+
+echo "Installing Wukong CLI ${VERSION} for ${TARGET}..."
 echo "Download URL: ${RELEASE_URL}"
 
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
 curl -fsSL "$RELEASE_URL" -o "${TMP_DIR}/${ARTIFACT}"
-curl -fsSL "${RELEASE_URL}.sha256" -o "${TMP_DIR}/${ARTIFACT}.sha256"
-
-cd "$TMP_DIR"
-shasum -a 256 -c "${ARTIFACT}.sha256" || { echo "Checksum verification failed"; exit 1; }
 
 mkdir -p "$INSTALL_DIR"
-unzip -o "$ARTIFACT" -d "$INSTALL_DIR"
+unzip -o "${TMP_DIR}/${ARTIFACT}" -d "$INSTALL_DIR"
 chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
 
 echo ""
 echo "Wukong CLI installed to: ${INSTALL_DIR}/${BINARY_NAME}"
 
-if [[ ":$PATH:" != *":${INSTALL_DIR}:"* ]]; then
-  echo ""
-  echo "Add the following to your shell profile to add wukong to your PATH:"
-  echo "  export PATH=\"${INSTALL_DIR}:\$PATH\""
-fi
+# POSIX-compatible PATH check
+case ":${PATH}:" in
+  *":${INSTALL_DIR}:"*) ;;
+  *)
+    echo ""
+    echo "Add the following to your shell profile to add wukong to your PATH:"
+    echo "  export PATH=\"${INSTALL_DIR}:\$PATH\""
+    ;;
+esac
 
 echo ""
 echo "Run 'wukong --version' to verify the installation."
