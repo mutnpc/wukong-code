@@ -1,35 +1,71 @@
 ---
 ---
 
-// Home page hero buttons
+// ===== Color Overrides =====
+// just-the-docs dark mode CSS variable overrides
+[data-theme="dark"],
+.site-container:not([data-theme]) {
+  --body-background-color: #0c0e14;
+  --sidebar-color: #0f1119;
+  --search-background-color: #161822;
+  --table-background-color: #13151e;
+  --code-background-color: #161822;
+  --border-color: #1e2130;
+
+  --body-text-color: #c8ccd4;
+  --body-heading-color: #e4e7ee;
+  --nav-child-link-color: #8b92a3;
+  --search-result-preview-color: #8b92a3;
+
+  --link-color: #818cf8;
+  --btn-primary-color: #6366f1;
+  --base-button-color: #1e2130;
+
+  --feedback-color: #818cf8;
+}
+
+// Lighter sidebar active item
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li a {
+  &.nav-list-link.active {
+    background-image: linear-gradient(90deg, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.05) 100%);
+    border-left: 3px solid #818cf8;
+  }
+}
+
+// ===== Home page hero buttons =====
 .btn {
   display: inline-block;
   padding: 0.6em 1.2em;
   border-radius: 6px;
   font-weight: 500;
   text-decoration: none !important;
-  transition: background 0.15s ease;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
 }
 
 .btn-primary {
   background: #6366f1;
   color: #fff !important;
+  border-color: #6366f1;
 
   &:hover {
     background: #4f46e5;
   }
 }
 
-.btn {
-  background: #334155;
-  color: #e2e8f0 !important;
+.btn:not(.btn-primary) {
+  background: #1e2130;
+  color: #c8ccd4 !important;
+  border-color: #2d3148;
 
   &:hover {
-    background: #475569;
+    background: #2d3148;
+    border-color: #3d4260;
   }
 }
 
-// Hero text
+// ===== Hero text =====
 .fs-9 {
   font-size: 2.5rem !important;
   font-weight: 800;
@@ -52,7 +88,27 @@
 .mb-4 { margin-bottom: 1rem; }
 .mr-2 { margin-right: 0.5rem; }
 
-// Callout tweaks
+// ===== Code blocks =====
+.highlight {
+  border: 1px solid #1e2130;
+  border-radius: 6px;
+}
+
+// ===== Callouts =====
 .note, .highlight {
-  border-left-color: #6366f1;
+  border-left-color: #818cf8;
+}
+
+// ===== Main content links =====
+.main-content a:not(.btn) {
+  color: #818cf8;
+}
+
+// ===== Search styling =====
+.search-input {
+  border-color: #1e2130;
+
+  &:focus {
+    border-color: #6366f1;
+  }
 }
