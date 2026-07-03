@@ -4,8 +4,8 @@
 
 - **macOS**, **Linux**, or **Windows**
 - A local workspace directory with your project code
-- An API key for your chosen LLM provider (Wukong CLI supports multiple
-  providers; managed Wukong auth is optional)
+- An API key for your chosen LLM provider (Wukong Code supports multiple
+  providers; managed Wukong Code auth is optional)
 
 ## Install
 
@@ -18,7 +18,7 @@ curl -fsSL https://wukong.today/install.sh | sh
 ### Windows
 
 Download the latest `.exe` from the
-[releases page](https://github.com/mutnpc/wukong-cli/releases) and place it on
+[releases page](https://github.com/mutnpc/wukong-code/releases) and place it on
 your `PATH`.
 
 ### Verify

@@ -1,6 +1,6 @@
 # Documentation
 
-Welcome to the Wukong CLI documentation.
+Welcome to the Wukong Code documentation.
 
 ## Contents
 
@@ -13,4 +13,4 @@ Welcome to the Wukong CLI documentation.
 ## Quick Links
 
 - [Official Website](https://wukong.today)
-- [Report a Bug](https://github.com/mutnpc/wukong-cli/issues)
+- [Report a Bug](https://github.com/mutnpc/wukong-code/issues)

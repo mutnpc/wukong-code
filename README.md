@@ -1,8 +1,8 @@
-# Wukong CLI
+# Wukong Code
 
-Wukong CLI is a local-first terminal AI agent. It runs on your machine, works
-with your existing codebase, and helps you write, verify, and ship code from the
-command line.
+Wukong Code is a local-first terminal AI coding agent. It runs on your machine,
+works with your existing codebase, and helps you write, verify, and ship code from
+the command line.
 
 - **Local-first**: your code and sessions stay on your device by default.
 - **Terminal-native**: launch an interactive TUI or run one-off prompts without
@@ -17,16 +17,16 @@ command line.
 ### macOS / Linux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/mutnpc/wukong-cli/main/install.sh | sh
+curl -fsSL https://wukong.today/install.sh | sh
 ```
 
 Or download the latest binary for your platform from the
-[releases page](https://github.com/mutnpc/wukong-cli/releases).
+[releases page](https://github.com/mutnpc/wukong-code/releases).
 
 ### Windows
 
 Download the latest `.exe` from the
-[releases page](https://github.com/mutnpc/wukong-cli/releases) and place it on
+[releases page](https://github.com/mutnpc/wukong-code/releases) and place it on
 your `PATH`.
 
 ### Verify
@@ -92,7 +92,7 @@ Run `wukong --help` for the full option list.
 ## Support
 
 - Website: [wukong.today](https://wukong.today)
-- Issues: [github.com/mutnpc/wukong-cli/issues](https://github.com/mutnpc/wukong-cli/issues)
+- Issues: [github.com/mutnpc/wukong-code/issues](https://github.com/mutnpc/wukong-code/issues)
 - Email: [support@wukong.today](mailto:support@wukong.today)
 
 ---

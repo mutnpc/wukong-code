@@ -1,6 +1,6 @@
 # Configuration
 
-Wukong CLI stores configuration and data under `~/.wukong`. The exact format is
+Wukong Code stores configuration and data under `~/.wukong`. The exact format is
 defined by the current CLI release; common files include:
 
 ```text

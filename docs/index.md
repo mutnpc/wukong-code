@@ -5,9 +5,9 @@ nav_order: 1
 permalink: /
 ---
 
-# Wukong CLI
+# Wukong Code
 
-Wukong CLI is a local-first terminal AI agent. Launch an interactive TUI or run
+Wukong Code is a local-first terminal AI coding agent. Launch an interactive TUI or run
 one-off prompts without leaving your shell.
 
 ## Quick install
@@ -40,5 +40,5 @@ wukong verify
 ## Links
 
 - [Website](https://wukong.today)
-- [GitHub](https://github.com/mutnpc/wukong-cli)
+- [GitHub](https://github.com/mutnpc/wukong-code)
 - [Support](mailto:support@wukong.today)

@@ -1,6 +1,6 @@
 # Command Reference
 
-Complete reference for the current Wukong CLI command surface.
+Complete reference for the current Wukong Code command surface.
 
 Run `wukong --help` for the most up-to-date options.
 
