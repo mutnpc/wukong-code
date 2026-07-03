@@ -1,10 +1,9 @@
 # Wukong Code
 
-Wukong Code is a local-first terminal AI coding agent. It runs on your machine,
-works with your existing codebase, and helps you write, verify, and ship code from
-the command line.
+Wukong Code is a terminal AI coding agent. It runs on your machine, works with
+your existing codebase, and helps you write, verify, and ship code from the
+command line.
 
-- **Local-first**: your code and sessions stay on your device by default.
 - **Terminal-native**: launch an interactive TUI or run one-off prompts without
   leaving your shell.
 - **Built for AI-generated code**: verify changes, scan for risks, and guard

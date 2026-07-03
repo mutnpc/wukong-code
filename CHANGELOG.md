@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2026-07-03
 
 ### Added
-- Initial public release of Wukong Code as a local-first terminal AI coding agent.
+- Initial public release of Wukong Code as a terminal AI coding agent.
 - Interactive TUI (`wukong`) and one-off prompt mode (`wukong -p`).
 - Verification suite: `wukong verify`, `wukong scan`, `wukong guard`.
 - Provider management (`wukong provider`) with built-in support for DeepSeek, Moonshot, OpenAI-compatible providers, and more.

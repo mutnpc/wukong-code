@@ -7,16 +7,26 @@ permalink: /
 
 # Wukong Code
 
-Wukong Code is a local-first terminal AI coding agent. Launch an interactive TUI or run
-one-off prompts without leaving your shell.
+Wukong Code is a terminal AI coding agent. Launch an interactive TUI or run one-off
+prompts without leaving your shell.
 
-## Quick install
+## Quick Install
 
 ```bash
 curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-## Quick start
+## Why Wukong Code?
+
+| | |
+|---|---|
+| **Terminal-native** | Stay in your flow — no browser, no IDE plugin, no context switch. |
+| **Verification built-in** | `wukong verify` checks your changes, `wukong scan` catches delivery risks before they ship. |
+| **Command guard** | `wukong guard` inspects risky commands before execution, so AI-generated shell scripts don't surprise you. |
+| **Multi-provider** | Bring your own keys — supports DeepSeek, Moonshot, OpenAI-compatible providers, and more. |
+| **Web UI & API** | `wukong web` opens a local UI; `wukong server` exposes REST and WebSocket endpoints for tooling. |
+
+## Quick Start
 
 ```bash
 # Start the interactive TUI
@@ -27,6 +37,9 @@ wukong -p "summarize this repo"
 
 # Verify current changes
 wukong verify
+
+# Scan for delivery risks
+wukong scan
 ```
 
 ## Documentation

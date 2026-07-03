@@ -1,3 +1,10 @@
+---
+layout: default
+title: Configuration
+nav_order: 4
+permalink: /configuration/
+---
+
 # Configuration
 
 Wukong Code stores configuration and data under `~/.wukong`. The exact format is

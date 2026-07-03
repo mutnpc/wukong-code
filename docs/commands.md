@@ -1,3 +1,10 @@
+---
+layout: default
+title: Commands
+nav_order: 3
+permalink: /commands/
+---
+
 # Command Reference
 
 Complete reference for the current Wukong Code command surface.
