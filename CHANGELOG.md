@@ -10,11 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.6] - 2026-07-03
+
 ### Changed
-- Product name unified to **Wukong Code** across documentation, website, and CLI metadata.
-- Public repository renamed to `mutnpc/wukong-code`; release binaries continue to be published here.
-- Installation script (`install.sh`) updated to pull from the `wukong-code` release feed.
-- CLI User-Agent updated to `wukong-code`.
+- Rebrand TUI welcome card to **Wukong Code** with a compact startup layout.
+- Simplify platform selector to OAuth-only, removing API-key platform options.
 
 ## [0.0.5] - 2026-07-03
 
