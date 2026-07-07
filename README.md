@@ -1,13 +1,18 @@
 # Wukong Code
 
-Wukong Code is a terminal AI coding agent. It runs on your machine, works with
-your existing codebase, and helps you write, verify, and ship code from the
-command line.
+> **AI can write the code. Wukong proves whether it should ship.**
+
+Wukong Code is a terminal-native AI coding agent built as the **control and
+verification layer for AI Coding Loops**. It runs on your machine, works with
+your existing codebase, and answers the question every other agent leaves open:
+*can this AI-written code be merged?*
 
 - **Terminal-native**: launch an interactive TUI or run one-off prompts without
   leaving your shell.
 - **Built for AI-generated code**: verify changes, scan for risks, and guard
   against risky commands before you commit.
+- **Loop engineering**: `/goal` drives a task until verification passes; planned
+  `/loop` orchestrates the whole write→verify→fix cycle.
 
 ---
 
@@ -75,6 +80,10 @@ wukong guard --status
 | `wukong vis [sessionId]` | Open the session visualizer |
 | `wukong migrate` | Migrate legacy Wukong data |
 | `wukong upgrade` | Upgrade to the latest version |
+
+Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, and `/goal` are
+available. Planned commands (not yet shipped): `wukong loop`, `wukong proof`,
+`wukong judge`, `wukong ship`.
 
 Run `wukong --help` for the full option list.
 

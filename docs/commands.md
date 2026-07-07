@@ -96,6 +96,24 @@ wukong guard --disable
 wukong guard -- rm -rf ./tmp
 ```
 
+Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, and `/goal` are
+available. `/goal` drives a task until its verification condition is met.
+
+---
+
+## Planned Commands
+
+{: .warning }
+> The commands below are **not yet shipped**. They are tracked in the roadmap
+> as the next milestone (loop control plane + merge proof).
+
+| Command | Description |
+|---|---|
+| `wukong loop` | Session-level loop orchestration: continuously drive agent → verify → fix until a verifiable stop condition is met |
+| `wukong proof` | Produce a Merge Proof Report (verify + scan + recommendation) answering "can this AI-written code be merged?" |
+| `wukong judge` | Evaluator-only review that never writes code; defaults to `--assume-broken` |
+| `wukong ship` | Release gate: proof + version/changelog checks + dry-run |
+
 ---
 
 ## Server & Web Commands

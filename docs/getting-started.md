@@ -7,6 +7,10 @@ permalink: /getting-started/
 
 # Getting Started
 
+Wukong Code is a terminal-native AI coding agent built as the **control and
+verification layer for AI Coding Loops** — it answers whether AI-written code
+can be merged, not just whether it can be written.
+
 ---
 
 ## Requirements

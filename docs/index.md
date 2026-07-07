@@ -8,10 +8,10 @@ permalink: /
 # Wukong Code
 
 {: .fs-9 }
-Terminal AI coding agent
+AI can write the code. Wukong proves whether it should ship.
 
 {: .fs-6 .fw-300 }
-Launch an interactive TUI or run one-off prompts — without leaving your shell.
+A terminal-native AI coding agent built as the control and verification layer for AI Coding Loops.
 
 [Quick Install](#quick-install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/mutnpc/wukong-code){: .btn .fs-5 .mb-4 .mb-md-0 }
@@ -21,13 +21,13 @@ Launch an interactive TUI or run one-off prompts — without leaving your shell.
 ## Why Wukong Code?
 
 {: .note }
+> **Proof, not just code** — Other agents write code. Wukong answers whether it can merge: `wukong verify` runs checks, `wukong scan` catches risks, `wukong guard` blocks dangerous commands.
+
+{: .note }
+> **Loop engineering** — `/goal` drives a task until verification passes. Planned `/loop` orchestrates the whole write → verify → fix cycle so you stop manually prompting the agent.
+
+{: .note }
 > **Terminal-native** — Stay in your flow. No browser, no IDE plugin, no context switch.
-
-{: .note }
-> **Verification built-in** — `wukong verify` checks your changes, `wukong scan` catches delivery risks before they ship.
-
-{: .note }
-> **Command guard** — `wukong guard` inspects risky commands before execution, so AI-generated shell scripts don't surprise you.
 
 {: .note }
 > **Multi-provider** — Bring your own keys. Supports DeepSeek, Moonshot, OpenAI-compatible providers, and more.
