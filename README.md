@@ -82,8 +82,8 @@ wukong guard --status
 | `wukong upgrade` | Upgrade to the latest version |
 
 Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, and `/goal` are
-available. Planned commands (not yet shipped): `wukong loop`, `wukong proof`,
-`wukong judge`, `wukong ship`.
+available. Planned commands (not yet shipped): `wukong loop` (local interval),
+`wukong proof`, `wukong judge`, `wukong ship`, `wukong schedule` (cloud routine).
 
 Run `wukong --help` for the full option list.
 

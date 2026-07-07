@@ -109,10 +109,11 @@ available. `/goal` drives a task until its verification condition is met.
 
 | Command | Description |
 |---|---|
-| `wukong loop` | Session-level loop orchestration: continuously drive agent → verify → fix until a verifiable stop condition is met |
+| `wukong loop` | Local interval loop: re-run a prompt on an interval (e.g. `/loop 5m ...`), driving agent → verify → fix until a verifiable stop condition is met. Stops when the machine turns off. |
 | `wukong proof` | Produce a Merge Proof Report (verify + scan + recommendation) answering "can this AI-written code be merged?" |
 | `wukong judge` | Evaluator-only review that never writes code; defaults to `--assume-broken` |
 | `wukong ship` | Release gate: proof + version/changelog checks + dry-run |
+| `wukong schedule` | Cloud routine: like `/loop` but runs in the cloud, so it keeps running when your machine is off (hosted, later) |
 
 ---
 
