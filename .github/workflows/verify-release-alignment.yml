@@ -1,0 +1,62 @@
+name: Verify Release Version Alignment
+
+on:
+  release:
+    types: [published, created, edited]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag to verify (e.g. v0.0.8)'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify-version-alignment:
+    name: Verify wukong-code release matches wukong_cli package version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve release tag
+        id: resolve-tag
+        run: |
+          TAG="${{ github.event.release.tag_name || github.event.inputs.release_tag }}"
+          # Strip leading 'v' if present for semver comparison
+          NORMALIZED="${TAG#v}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "normalized=$NORMALIZED" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch wukong_cli package version
+        id: fetch-cli-version
+        env:
+          GH_TOKEN: ${{ secrets.WUKONG_CLI_READ_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch apps/wukong/package.json from the wukong_cli repository.
+          # If wukong_cli is private, set WUKONG_CLI_READ_TOKEN secret with repo read access.
+          RESPONSE=$(curl -fsSL \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3.raw" \
+            "https://api.github.com/repos/mutnpc/wukong_cli/contents/apps/wukong/package.json?ref=main")
+          VERSION=$(echo "$RESPONSE" | grep -m1 '"version"' | sed -E 's/.*"version".*"([^"]+)".*/\1/')
+          if [ -z "$VERSION" ]; then
+            echo "error: could not extract version from wukong_cli/apps/wukong/package.json"
+            echo "api_response=$RESPONSE"
+            exit 1
+          fi
+          echo "cli_version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "wukong_cli package version: $VERSION"
+          echo "wukong-code release tag: ${{ steps.resolve-tag.outputs.tag }}"
+
+      - name: Verify versions match
+        run: |
+          RELEASE_VERSION="${{ steps.resolve-tag.outputs.normalized }}"
+          CLI_VERSION="${{ steps.fetch-cli-version.outputs.cli_version }}"
+          if [ "$RELEASE_VERSION" != "$CLI_VERSION" ]; then
+            echo "error: version mismatch"
+            echo "  wukong-code release tag: v$RELEASE_VERSION"
+            echo "  wukong_cli package version: $CLI_VERSION"
+            echo ""
+            echo "Fix: bump wukong_cli/apps/wukong/package.json (and root package.json) to match the intended release tag before creating the wukong-code release."
+            exit 1
+          fi
+          echo "Versions aligned: $CLI_VERSION"
