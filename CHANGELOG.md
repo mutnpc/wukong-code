@@ -18,7 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Verification layer merge proof and stop conditions for `verify-skill`.
 
 ### Changed
-- Complete rebrand from Kimi to **Wukong Code** across TUI, web UI, docs, and CLI output.
 - Point CLI default OAuth host and API base URL to `wukong.today`.
 - Regenerate web favicon from the Wukong logo.
 
