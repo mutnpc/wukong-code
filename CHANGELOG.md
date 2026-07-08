@@ -10,6 +10,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.8] - 2026-07-08
+
+### Added
+- Milestone 0.5 AI Coding Loop control plane: `/loop` for local interval pacing and `/schedule` for cloud cron jobs.
+- `/loop --every` cron-style scheduler pacing for recurring agent loops.
+- Verification layer merge proof and stop conditions for `verify-skill`.
+
+### Changed
+- Complete rebrand from Kimi to **Wukong Code** across TUI, web UI, docs, and CLI output.
+- Point CLI default OAuth host and API base URL to `wukong.today`.
+- Regenerate web favicon from the Wukong logo.
+
+### Fixed
+- Clear all lint warnings and fix latent bugs uncovered by lint (verification double-resolve, jitter hash safety, oauth Set typing).
+- Fix Vitest `#/cli/*` alias resolution so the CLI test suite runs green.
+
 ## [0.0.7] - 2026-07-03
 
 ### Changed
