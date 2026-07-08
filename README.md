@@ -56,6 +56,11 @@ wukong verify
 # Scan for delivery risks
 wukong scan
 
+# Upload a redacted report to wukong.today
+wukong verify --upload
+wukong scan --upload
+wukong report upload ./wukong-verify-report.md
+
 # Check guard status
 wukong guard --status
 ```
@@ -76,6 +81,7 @@ wukong guard --status
 | `wukong proof` | Generate a Merge Proof Report |
 | `wukong judge` | Evaluator-only merge decision |
 | `wukong loop` | Start a local iteration loop with a verification gate |
+| `wukong report upload <path>` | Upload a local report markdown file to wukong.today |
 | `wukong today` | Show the Daily Proof Briefing and manage today's focus |
 | `wukong server` | Start the local REST/WebSocket server |
 | `wukong web` | Open the local web UI |

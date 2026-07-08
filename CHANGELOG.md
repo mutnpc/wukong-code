@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- M1 Hosted Reports: upload redacted `verify`/`scan`/`proof` reports to wukong.today with `wukong verify --upload`, `wukong scan --upload`, `wukong proof --upload`, or `wukong report upload <path>`.
+- Hosted report list and share page at `https://wukong.today/r/<id>`.
+- Per-tier monthly hosted report quota (founder/pro) with usage tracking.
+
 ## [0.0.8] - 2026-07-08
 
 ### Added

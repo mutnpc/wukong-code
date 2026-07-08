@@ -72,6 +72,7 @@ wukong verify --build
 wukong verify --command "pnpm test"
 wukong verify --json
 wukong verify --no-report
+wukong verify --upload
 ```
 
 ### `wukong scan`
@@ -82,6 +83,27 @@ Read-only risk scan of git changes.
 wukong scan
 wukong scan --json
 wukong scan --report ./reports/risk.md
+wukong scan --upload
+```
+
+### `wukong proof`
+
+Generate a Merge Proof Report (verify + scan + recommendation).
+
+```bash
+wukong proof
+wukong proof --json
+wukong proof --upload
+```
+
+### `wukong report upload <path>`
+
+Upload an existing local report markdown file to wukong.today. The type is
+auto-detected from the markdown content or can be set with `--type`.
+
+```bash
+wukong report upload ./wukong-verify-report.md
+wukong report upload ./scan-report.md --type scan
 ```
 
 ### `wukong guard`
@@ -105,13 +127,10 @@ available. `/goal` drives a task until its verification condition is met.
 
 {: .warning }
 > The commands below are **not yet shipped**. They are tracked in the roadmap
-> as the next milestone (loop control plane + merge proof).
+> as future milestones.
 
 | Command | Description |
 |---|---|
-| `wukong loop` | Local interval loop: re-run a prompt on an interval (e.g. `/loop 5m ...`), driving agent → verify → fix until a verifiable stop condition is met. Stops when the machine turns off. |
-| `wukong proof` | Produce a Merge Proof Report (verify + scan + recommendation) answering "can this AI-written code be merged?" |
-| `wukong judge` | Evaluator-only review that never writes code; defaults to `--assume-broken` |
 | `wukong ship` | Release gate: proof + version/changelog checks + dry-run |
 | `wukong schedule` | Cloud routine: like `/loop` but runs in the cloud, so it keeps running when your machine is off (hosted, later) |
 
