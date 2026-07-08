@@ -73,6 +73,9 @@ wukong guard --status
 | `wukong verify` | Run deterministic checks and write an evidence report |
 | `wukong scan` | Scan git changes for delivery risks |
 | `wukong guard` | Inspect or run the command risk guard |
+| `wukong proof` | Generate a Merge Proof Report |
+| `wukong judge` | Evaluator-only merge decision |
+| `wukong loop` | Start a local iteration loop with a verification gate |
 | `wukong server` | Start the local REST/WebSocket server |
 | `wukong web` | Open the local web UI |
 | `wukong doctor` | Validate configuration files |
@@ -81,9 +84,7 @@ wukong guard --status
 | `wukong migrate` | Migrate legacy Wukong data |
 | `wukong upgrade` | Upgrade to the latest version |
 
-Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, and `/goal` are
-available. Planned commands (not yet shipped): `wukong loop` (local interval),
-`wukong proof`, `wukong judge`, `wukong ship`, `wukong schedule` (cloud routine).
+Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, `/goal`, `/proof`, `/judge`, and `/loop` are available. Planned commands (not yet shipped): `wukong ship`, `wukong schedule` (cloud routine).
 
 Run `wukong --help` for the full option list.
 
