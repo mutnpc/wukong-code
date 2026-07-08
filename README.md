@@ -76,6 +76,7 @@ wukong guard --status
 | `wukong proof` | Generate a Merge Proof Report |
 | `wukong judge` | Evaluator-only merge decision |
 | `wukong loop` | Start a local iteration loop with a verification gate |
+| `wukong today` | Show the Daily Proof Briefing and manage today's focus |
 | `wukong server` | Start the local REST/WebSocket server |
 | `wukong web` | Open the local web UI |
 | `wukong doctor` | Validate configuration files |
@@ -84,7 +85,7 @@ wukong guard --status
 | `wukong migrate` | Migrate legacy Wukong data |
 | `wukong upgrade` | Upgrade to the latest version |
 
-Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, `/goal`, `/proof`, `/judge`, and `/loop` are available. Planned commands (not yet shipped): `wukong ship`, `wukong schedule` (cloud routine).
+Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, `/goal`, `/proof`, `/judge`, `/loop`, and `/today` are available. Planned commands (not yet shipped): `wukong ship`, `wukong schedule` (cloud routine).
 
 Run `wukong --help` for the full option list.
 
