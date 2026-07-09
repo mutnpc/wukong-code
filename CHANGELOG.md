@@ -10,10 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.9] - 2026-07-09
+
 ### Added
+- `wukong today` Daily Proof Briefing: local verify/scan/proof stats, streak, focus, and next actions. Run `wukong today` or `/today`.
 - M1 Hosted Reports: upload redacted `verify`/`scan`/`proof` reports to wukong.today with `wukong verify --upload`, `wukong scan --upload`, `wukong proof --upload`, or `wukong report upload <path>`.
 - Hosted report list and share page at `https://wukong.today/r/<id>`.
 - Per-tier monthly hosted report quota (founder/pro) with usage tracking.
+- Loop-driven TUI chrome: Claude Code-style borderless editor, loop-phase heartbeat, and verify/proof conclusion tracks.
+
+### Fixed
+- Chrome-state no longer treats goal blocked as a verify failure; hydrate keeps the newest stats events; warning/judge mapping matches CLI semantics.
+- Nix/SEA Node 26.4.0 build and verification workspace wiring.
 
 ## [0.0.8] - 2026-07-08
 

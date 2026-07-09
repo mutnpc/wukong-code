@@ -37,7 +37,7 @@ while [ $# -gt 0 ]; do
 done
 
 if echo "$URL" | grep -q "releases/latest"; then
-    echo '{"tag_name":"v0.0.8"}'
+    echo '{"tag_name":"v0.0.9"}'
     exit 0
 fi
 
@@ -65,7 +65,7 @@ teardown() {
     run ./install.sh
     [ "$status" -eq 0 ]
     [ -x "$HOME/.wukong/bin/wukong" ]
-    [[ "$output" == *"v0.0.8"* ]]
+    [[ "$output" == *"v0.0.9"* ]]
     [[ "$output" == *"wukong-darwin-x64"* ]]
 }
 
