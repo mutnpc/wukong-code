@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.10] - 2026-07-09
+
+### Fixed
+- OAuth device-code login now targets `https://wukong.today` (the previous `auth.wukong.today` host had no DNS).
+- Accept legacy `oauth/` credential key prefixes so persisted `oauth_host` is not dropped during login.
+- Startup no longer warns when refreshing `managed:wukong` models while logged out.
+- CLI `--help` documentation link points to `https://docs.wukong.today`.
+
 ## [0.0.9] - 2026-07-09
 
 ### Added
