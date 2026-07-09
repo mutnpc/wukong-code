@@ -21,16 +21,16 @@ A terminal-native AI coding agent built as the control and verification layer fo
 ## Why Wukong Code?
 
 {: .note }
-> **Proof, not just code** — Other agents write code. Wukong answers whether it can merge: `wukong verify` runs checks, `wukong scan` catches risks, `wukong guard` blocks dangerous commands.
+> **Proof, not just code** — Other agents write code. Wukong answers whether it can merge: `wukong verify` runs checks, `wukong scan` catches risks, `wukong proof` builds merge evidence, and `wukong guard` blocks dangerous commands.
 
 {: .note }
-> **Loop engineering** — `/goal` drives a task until verification passes. Planned `/loop` orchestrates the whole write → verify → fix cycle so you stop manually prompting the agent.
+> **Loop control plane** — `/goal` drives a single objective. `/loop --until verify-pass` iterates locally until the gate passes. `wukong today` shows the Daily Proof Briefing.
 
 {: .note }
 > **Terminal-native** — Stay in your flow. No browser, no IDE plugin, no context switch.
 
 {: .note }
-> **Multi-provider** — Bring your own keys. Supports DeepSeek, Moonshot, OpenAI-compatible providers, and more.
+> **Multi-provider** — Bring your own keys. Supports DeepSeek, Moonshot, OpenAI-compatible providers, and more. Optional `wukong login` for hosted reports on wukong.today.
 
 {: .note }
 > **Web UI & Server** — `wukong web` opens a local UI; `wukong server` exposes REST and WebSocket endpoints.
@@ -57,9 +57,11 @@ wukong
 # Run a one-off prompt
 wukong -p "explain this repo"
 
-# Verify changes before committing
-wukong verify
+# Set today's focus and check the Daily Proof Briefing
+wukong today "ship auth fix"
 
-# Scan for delivery risks
+# Verify, scan, then prove merge-ready
+wukong verify
 wukong scan
+wukong proof
 ```

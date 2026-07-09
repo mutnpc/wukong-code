@@ -13,4 +13,5 @@ Welcome to the Wukong Code documentation.
 ## Quick Links
 
 - [Official Website](https://wukong.today)
+- [Live Docs](https://docs.wukong.today)
 - [Report a Bug](https://github.com/mutnpc/wukong-code/issues)

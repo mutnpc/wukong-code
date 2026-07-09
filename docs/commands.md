@@ -9,6 +9,7 @@ permalink: /commands/
 
 {: .highlight }
 Run `wukong --help` for the most up-to-date options.
+Full docs live at [docs.wukong.today](https://docs.wukong.today).
 
 ## Global Options
 
@@ -48,15 +49,32 @@ Manage LLM providers.
 
 ```bash
 wukong provider
+wukong provider catalog add deepseek --api-key <key> --default-model deepseek-v4-pro
 ```
 
 ### `wukong login`
 
-Authenticate via the device-code flow.
+Authenticate via the device-code flow (needed for hosted report upload).
 
 ```bash
 wukong login
 ```
+
+Opens `https://wukong.today/auth/device`. OAuth endpoints live on `wukong.today`
+(not a separate `auth.*` subdomain).
+
+### `wukong today`
+
+Show the Daily Proof Briefing: today's verify/scan/proof/guard stats, streak,
+last proof summary, and next suggestions. Optionally set or clear focus.
+
+```bash
+wukong today
+wukong today "ship auth fix"
+wukong today --clear-focus
+```
+
+In the TUI, `/today` shows the same briefing.
 
 ---
 
@@ -96,10 +114,19 @@ wukong proof --json
 wukong proof --upload
 ```
 
+### `wukong judge`
+
+Deterministic pass/block judgment from proof signals (no model calls by default).
+
+```bash
+wukong judge
+wukong judge --json
+```
+
 ### `wukong report upload <path>`
 
-Upload an existing local report markdown file to wukong.today. The type is
-auto-detected from the markdown content or can be set with `--type`.
+Upload an existing local report markdown file to wukong.today. Requires login.
+The type is auto-detected from the markdown content or can be set with `--type`.
 
 ```bash
 wukong report upload ./wukong-verify-report.md
@@ -118,8 +145,32 @@ wukong guard --disable
 wukong guard -- rm -rf ./tmp
 ```
 
-Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, and `/goal` are
-available. `/goal` drives a task until its verification condition is met.
+---
+
+## Loop Control (TUI)
+
+Inside the TUI:
+
+| Slash command | Description |
+|---|---|
+| `/today` | Daily Proof Briefing |
+| `/verify` | Run verification |
+| `/scan` | Risk scan |
+| `/proof` | Merge proof report |
+| `/judge` | Pass/block judgment |
+| `/goal` | Drive a single objective; optional `--until verify-pass\|scan-clean\|judge-pass` |
+| `/loop` | Iterate locally until a verification gate passes |
+| `/guard` | Guard status |
+| `/report` | Open the latest verification, scan, or proof report |
+
+### `wukong loop`
+
+CLI entry for a local iteration loop with a verification gate. Prefer `/loop`
+in the TUI for the interactive driver.
+
+```bash
+wukong loop --until verify-pass --dry-run
+```
 
 ---
 
@@ -132,7 +183,7 @@ available. `/goal` drives a task until its verification condition is met.
 | Command | Description |
 |---|---|
 | `wukong ship` | Release gate: proof + version/changelog checks + dry-run |
-| `wukong schedule` | Cloud routine: like `/loop` but runs in the cloud, so it keeps running when your machine is off (hosted, later) |
+| `wukong schedule` | Cloud routine that keeps running when your machine is off (hosted, later) |
 
 ---
 

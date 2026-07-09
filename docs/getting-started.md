@@ -21,6 +21,7 @@ can be merged, not just whether it can be written.
 
 {: .note }
 Wukong Code supports multiple providers — managed auth is optional. Bring your own keys.
+Use `wukong login` only when you want hosted report upload on wukong.today.
 
 ---
 
@@ -72,6 +73,16 @@ Run a one-off prompt:
 wukong -p "summarize this repository"
 ```
 
+### `wukong today`
+
+Show the Daily Proof Briefing (verify/scan/proof stats, streak, focus, next):
+
+```bash
+wukong today
+wukong today "ship auth fix"
+wukong today --clear-focus
+```
+
 ---
 
 ## Verification
@@ -92,6 +103,14 @@ Scan git changes for delivery risks:
 wukong scan
 ```
 
+### `wukong proof`
+
+Build a merge-ready evidence report from verify + scan:
+
+```bash
+wukong proof
+```
+
 ### `wukong guard`
 
 Inspect risky commands before execution:
@@ -99,6 +118,21 @@ Inspect risky commands before execution:
 ```bash
 wukong guard --status
 ```
+
+---
+
+## Optional: Hosted Upload
+
+After `wukong login`, upload a redacted report:
+
+```bash
+wukong login
+wukong proof --upload
+# or
+wukong report upload ./wukong-verify-report.md
+```
+
+Device-code login opens `https://wukong.today/auth/device`.
 
 ---
 

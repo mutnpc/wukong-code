@@ -7,7 +7,8 @@ permalink: /configuration/
 
 # Configuration
 
-Wukong Code stores configuration and data under `~/.wukong`.
+Wukong Code stores configuration and data under `~/.wukong`
+(or `$WUKONG_CODE_HOME` when set).
 
 ```text
 ~/.wukong/
@@ -20,15 +21,21 @@ Wukong Code stores configuration and data under `~/.wukong`.
 
 | Variable | Description |
 |---|---|
-| `WUKONG_HOME` | Override the default data directory |
-| `WUKONG_CODE_PROVIDER_NAME` | Default provider name |
+| `WUKONG_CODE_HOME` | Override the default data directory (`~/.wukong`) |
+| `WUKONG_CODE_OAUTH_HOST` | OAuth host for device-code login (default: `https://wukong.today`) |
+| `WUKONG_CODE_BASE_URL` | Managed API base URL (default: `https://wukong.today/api/v1`) |
+| `WUKONG_API_URL` | Hosted report upload API base (default: `https://wukong.today`) |
 | `WUKONG_CODE_CUSTOM_HEADERS` | Custom outbound LLM request headers |
 
 ### Example
 
 ```bash
-WUKONG_HOME=/tmp/wukong-test wukong doctor
+WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
 ```
+
+{: .note }
+Device-code OAuth and hosted uploads use **`https://wukong.today`**.
+There is no separate `auth.wukong.today` host.
 
 ---
 
@@ -42,6 +49,12 @@ wukong provider
 
 Or edit `~/.wukong/config.toml` directly.
 
+Optional managed Wukong login (for hosted reports):
+
+```bash
+wukong login
+```
+
 ---
 
 ## Configuration Priority
@@ -50,6 +63,6 @@ Or edit `~/.wukong/config.toml` directly.
 Settings are resolved in order — later sources override earlier ones.
 
 1. Built-in defaults
-2. Config files in `WUKONG_HOME`
+2. Config files in `WUKONG_CODE_HOME`
 3. Environment variables
 4. Command-line options
