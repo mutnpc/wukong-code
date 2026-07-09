@@ -35,7 +35,10 @@ Install on macOS or Linux:
 curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-For Windows, download the `.exe` from the [releases page](https://github.com/mutnpc/wukong-code/releases).
+For Windows, download the `.exe` from the [releases page](https://github.com/mutnpc/wukong-code/releases),
+or use the guided installer on [Download Wukong Code](https://wukong.today/download).
+
+Prefer a browser walkthrough? Start at [wukong.today](https://wukong.today) → [Download Wukong Code](https://wukong.today/download).
 
 ### `wukong --version`
 

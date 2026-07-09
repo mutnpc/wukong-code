@@ -14,7 +14,8 @@ AI can write the code. Wukong proves whether it should ship.
 A terminal-native AI coding agent built as the control and verification layer for AI Coding Loops.
 
 [Quick Install](#quick-install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View on GitHub](https://github.com/mutnpc/wukong-code){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Download Wukong Code](https://wukong.today/download){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Wukong Code Website](https://wukong.today){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
@@ -44,7 +45,7 @@ curl -fsSL https://wukong.today/install.sh | sh
 ```
 
 {: .highlight }
-> **macOS**, **Linux**, and **Windows** are fully supported. See [Getting Started](/getting-started) for details.
+> **macOS**, **Linux**, and **Windows** are fully supported. Prefer a guided page? Use [Download Wukong Code](https://wukong.today/download). Details: [Getting Started](/getting-started).
 
 ---
 

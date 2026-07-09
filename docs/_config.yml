@@ -1,8 +1,10 @@
-title: Wukong Code
-description: Terminal AI coding agent — launch an interactive TUI or run one-off prompts without leaving your shell.
+title: Wukong Code Docs
+description: Wukong Code documentation — terminal AI coding agent with /verify /scan /proof, local loops, and wukong today.
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Theme settings
 color_scheme: light
@@ -13,20 +15,27 @@ heading_anchors: true
 # Navigation
 nav_sort: case_sensitive
 nav_external_links:
+  - title: Wukong Code Website
+    url: https://wukong.today
+    hide_icon: false
+  - title: Download Wukong Code
+    url: https://wukong.today/download
+    hide_icon: false
   - title: GitHub
     url: https://github.com/mutnpc/wukong-code
-    hide_icon: false
-  - title: Website
-    url: https://wukong.today
     hide_icon: false
 
 # Aux links (top right)
 aux_links:
+  "Wukong Code Website":
+    - "https://wukong.today"
+  "Download Wukong Code":
+    - "https://wukong.today/download"
   "Wukong Code on GitHub":
     - "https://github.com/mutnpc/wukong-code"
 
 # Footer
-footer_content: "&copy; Wukong Code"
+footer_content: '&copy; <a href="https://wukong.today">Wukong Code</a> · <a href="https://wukong.today/download">Download</a> · <a href="https://github.com/mutnpc/wukong-code">GitHub</a>'
 
 # SEO
 url: https://docs.wukong.today
