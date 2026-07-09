@@ -8,7 +8,7 @@ plugins:
 
 # Theme settings
 color_scheme: wukong
-logo: "/assets/images/logo.svg"
+logo: "/assets/images/logo-mark.png"
 favicon_ico: "/favicon.ico"
 search_enabled: true
 search.heading_level: 2
@@ -31,15 +31,6 @@ nav_external_links:
   - title: GitHub
     url: https://github.com/mutnpc/wukong-code
     hide_icon: false
-
-# Aux links (top right)
-aux_links:
-  "Wukong Code Website":
-    - "https://wukong.today"
-  "Download Wukong Code":
-    - "https://wukong.today/download"
-  "Wukong Code on GitHub":
-    - "https://github.com/mutnpc/wukong-code"
 
 # Footer
 footer_content: '&copy; <a href="https://wukong.today">Wukong Code</a> · <a href="https://wukong.today/download">Download</a> · <a href="https://github.com/mutnpc/wukong-code">GitHub</a>'

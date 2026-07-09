@@ -5,6 +5,12 @@
   letter-spacing: -0.02em;
 }
 
+.site-title .site-logo {
+  max-height: 2.25rem;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+
 .site-header {
   border-bottom: 1px solid rgba(22, 163, 74, 0.18);
 }
@@ -73,12 +79,9 @@ pre.highlight {
   }
 }
 
-.aux-nav .aux-nav-list-item a.site-button {
-  color: #166534;
-
-  &:hover {
-    color: #15803d;
-  }
+// Hide Just the Docs attribution + leftover footer padding
+.site-footer {
+  display: none;
 }
 
 .fs-9 {
