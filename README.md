@@ -99,6 +99,8 @@ Run `wukong --help` for the full option list.
 
 ## Documentation
 
+Full docs: [docs.wukong.today](https://docs.wukong.today)
+
 - [Getting started](./docs/getting-started.md)
 - [Command reference](./docs/commands.md)
 - [Configuration](./docs/configuration.md)
