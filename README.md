@@ -11,8 +11,8 @@ your existing codebase, and answers the question every other agent leaves open:
   leaving your shell.
 - **Built for AI-generated code**: verify changes, scan for risks, and guard
   against risky commands before you commit.
-- **Loop engineering**: `/goal` drives a task until verification passes; planned
-  `/loop` orchestrates the whole write→verify→fix cycle.
+- **Loop engineering**: `/goal` drives a task until verification passes; interactive
+  `/loop` orchestrates the write→verify→fix cycle inside the TUI.
 
 ---
 
@@ -80,7 +80,7 @@ wukong guard --status
 | `wukong guard` | Inspect or run the command risk guard |
 | `wukong proof` | Generate a Merge Proof Report |
 | `wukong judge` | Evaluator-only merge decision |
-| `wukong loop` | Start a local iteration loop with a verification gate |
+| `wukong loop --dry-run` | Validate a loop plan; execute `/loop` interactively in the TUI |
 | `wukong report upload <path>` | Upload a local report markdown file to wukong.today |
 | `wukong today` | Show the Daily Proof Briefing and manage today's focus |
 | `wukong server` | Start the local REST/WebSocket server |

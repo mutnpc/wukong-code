@@ -42,6 +42,16 @@ if echo "$URL" | grep -q "releases/latest"; then
 fi
 
 if echo "$URL" | grep -q "/download/"; then
+    if echo "$URL" | grep -q "\.sha256$"; then
+        python3 - "$OUTPUT" <<'PY'
+import hashlib, pathlib, sys
+out = pathlib.Path(sys.argv[1])
+archive = pathlib.Path(str(out).removesuffix('.sha256'))
+digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+out.write_text(f'{digest}  {archive.name}\n')
+PY
+        exit 0
+    fi
     python3 - "$OUTPUT" <<'PY'
 import sys, zipfile, os
 out = sys.argv[1]
@@ -67,6 +77,7 @@ teardown() {
     [ -x "$HOME/.wukong/bin/wukong" ]
     [[ "$output" == *"v0.0.10"* ]]
     [[ "$output" == *"wukong-darwin-x64"* ]]
+    [[ "$output" == *"Verified SHA-256"* ]]
 }
 
 @test "respects WUKONG_VERSION override" {

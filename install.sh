@@ -60,6 +60,7 @@ else
 fi
 
 RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${VERSION}/${ARTIFACT}"
+CHECKSUM_URL="${RELEASE_URL}.sha256"
 
 echo "Installing Wukong Code ${VERSION} for ${TARGET}..."
 echo "Download URL: ${RELEASE_URL}"
@@ -68,6 +69,29 @@ TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
 curl -fsSL "$RELEASE_URL" -o "${TMP_DIR}/${ARTIFACT}"
+curl -fsSL "$CHECKSUM_URL" -o "${TMP_DIR}/${ARTIFACT}.sha256"
+
+EXPECTED_SHA256="$(sed -n 's/^\([0-9a-fA-F]\{64\}\).*/\1/p' "${TMP_DIR}/${ARTIFACT}.sha256")"
+if [ -z "$EXPECTED_SHA256" ]; then
+  echo "Release checksum is missing or invalid."
+  exit 1
+fi
+
+if command -v sha256sum >/dev/null 2>&1; then
+  ACTUAL_SHA256="$(sha256sum "${TMP_DIR}/${ARTIFACT}" | awk '{print $1}')"
+elif command -v shasum >/dev/null 2>&1; then
+  ACTUAL_SHA256="$(shasum -a 256 "${TMP_DIR}/${ARTIFACT}" | awk '{print $1}')"
+else
+  echo "Cannot verify release: sha256sum or shasum is required."
+  exit 1
+fi
+
+if [ "$ACTUAL_SHA256" != "$EXPECTED_SHA256" ]; then
+  echo "Release checksum verification failed."
+  exit 1
+fi
+
+echo "Verified SHA-256: ${ACTUAL_SHA256}"
 
 mkdir -p "$INSTALL_DIR"
 unzip -o "${TMP_DIR}/${ARTIFACT}" -d "$INSTALL_DIR"

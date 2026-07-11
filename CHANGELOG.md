@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.8] - 2026-07-08
 
 ### Added
-- Milestone 0.5 AI Coding Loop control plane: `/loop` for local interval pacing and `/schedule` for cloud cron jobs.
+- Milestone 0.5 AI Coding Loop control plane: interactive `/loop` for local iteration pacing. The non-interactive driver and cloud `/schedule` remain planned.
 - `/loop --every` cron-style scheduler pacing for recurring agent loops.
 - Verification layer merge proof and stop conditions for `verify-skill`.
 
