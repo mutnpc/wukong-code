@@ -26,6 +26,8 @@ Wukong Code stores configuration and data under `~/.wukong`
 | `WUKONG_CODE_BASE_URL` | Managed API base URL (default: `https://wukong.today/api/v1`) |
 | `WUKONG_API_URL` | Hosted report upload API base (default: `https://wukong.today`) |
 | `WUKONG_CODE_CUSTOM_HEADERS` | Custom outbound LLM request headers |
+| `WUKONG_CODE_NO_AUTO_UPDATE` | Disable startup update checks, prompts, and background installation when set to `1`, `true`, `yes`, or `on` |
+| `WUKONG_CLI_NO_AUTO_UPDATE` | Legacy alias for `WUKONG_CODE_NO_AUTO_UPDATE` |
 
 ### Example
 
@@ -36,6 +38,17 @@ WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
 {: .note }
 Device-code OAuth and hosted uploads use **`https://wukong.today`**.
 There is no separate `auth.wukong.today` host.
+
+## Automatic updates
+
+Background automatic installation is enabled by default for supported global package-manager installations. Configure it in the TUI through `/settings` → **Upgrade**, or edit `~/.wukong/tui.toml`:
+
+```toml
+[upgrade]
+auto_install = false
+```
+
+This preference stops background installation but leaves update checks and prompts enabled. Use `WUKONG_CODE_NO_AUTO_UPDATE=1` to disable the startup update preflight completely. Neither setting disables TUI announcements. See [Updates and announcements](/updates-and-announcements/).
 
 ---
 

@@ -9,6 +9,7 @@ Welcome to the Wukong Code documentation.
 | [Getting Started](./getting-started.md) | Installation and first steps |
 | [Commands](./commands.md) | Complete command reference |
 | [Configuration](./configuration.md) | Configuration options and settings |
+| [Updates and announcements](./updates-and-announcements.md) | Automatic updates, manual upgrades, TUI announcements, and privacy behavior |
 
 ## Quick Links
 

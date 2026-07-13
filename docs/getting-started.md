@@ -78,7 +78,7 @@ wukong -p "summarize this repository"
 
 ### `wukong today`
 
-Show the Daily Proof Briefing (verify/scan/proof stats, streak, focus, next):
+Show the Daily Proof Briefing (local stats, focus, next actions, and hosted-report usage when logged in):
 
 ```bash
 wukong today
@@ -130,7 +130,8 @@ After `wukong login`, upload a redacted report:
 
 ```bash
 wukong login
-wukong proof --upload
+wukong proof --upload           # private Dashboard history
+wukong proof --upload --public  # public share link
 # or
 wukong report upload ./wukong-verify-report.md
 ```

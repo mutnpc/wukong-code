@@ -10,6 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.11] - 2026-07-13
+
+### Added
+- TUI announcements fetched asynchronously from `https://wukong.today/cli/announcements.json`, with version/time targeting, display frequency, sanitization, and approved action links.
+- Explicit public hosted-report sharing through `wukong verify --upload --public`, `wukong scan --upload --public`, `wukong proof --upload --public`, and `wukong report upload <path> --public`; uploads remain private by default.
+- Logged-in `wukong today` output now includes hosted-report usage and the Dashboard link without making the local briefing depend on the network.
+
+### Changed
+- Refined TUI welcome, loop status, proof actions, and footer alignment for narrow and wide terminals.
+- Reworked the Dashboard around real evidence history, quota, and clear next actions instead of generic SaaS metrics.
+
+### Fixed
+- Hosted report visibility is now explicit end to end, so a public upload reliably returns a share link while ordinary uploads stay private.
+
 ## [0.0.10] - 2026-07-09
 
 ### Fixed

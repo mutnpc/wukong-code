@@ -89,7 +89,7 @@ wukong guard --status
 | `wukong export [sessionId]` | Export a session ZIP |
 | `wukong vis [sessionId]` | Open the session visualizer |
 | `wukong migrate` | Migrate legacy Wukong data |
-| `wukong upgrade` | Upgrade to the latest version |
+| `wukong upgrade` / `wukong update` | Upgrade to the latest version |
 
 Inside the TUI, `/verify`, `/scan`, `/guard`, `/report`, `/goal`, `/proof`, `/judge`, `/loop`, and `/today` are available. Planned commands (not yet shipped): `wukong ship`, `wukong schedule` (cloud routine).
 
@@ -104,6 +104,7 @@ Full docs: [docs.wukong.today](https://docs.wukong.today)
 - [Getting started](./docs/getting-started.md)
 - [Command reference](./docs/commands.md)
 - [Configuration](./docs/configuration.md)
+- [Updates and announcements](./docs/updates-and-announcements.md)
 
 ---
 

@@ -91,6 +91,7 @@ wukong verify --command "pnpm test"
 wukong verify --json
 wukong verify --no-report
 wukong verify --upload
+wukong verify --upload --public
 ```
 
 ### `wukong scan`
@@ -102,6 +103,7 @@ wukong scan
 wukong scan --json
 wukong scan --report ./reports/risk.md
 wukong scan --upload
+wukong scan --upload --public
 ```
 
 ### `wukong proof`
@@ -112,6 +114,7 @@ Generate a Merge Proof Report (verify + scan + recommendation).
 wukong proof
 wukong proof --json
 wukong proof --upload
+wukong proof --upload --public
 ```
 
 ### `wukong judge`
@@ -127,10 +130,12 @@ wukong judge --json
 
 Upload an existing local report markdown file to wukong.today. Requires login.
 The type is auto-detected from the markdown content or can be set with `--type`.
+Uploads are private by default. Add `--public` only when you want a public link.
 
 ```bash
 wukong report upload ./wukong-verify-report.md
 wukong report upload ./scan-report.md --type scan
+wukong report upload ./proof-report.md --public
 ```
 
 ### `wukong guard`
@@ -243,13 +248,16 @@ Migrate legacy Wukong data.
 wukong migrate
 ```
 
-### `wukong upgrade`
+### `wukong upgrade` / `wukong update`
 
-Upgrade to the latest version.
+Check the public version manifest and upgrade to the latest version. The `update` command is an alias. Manual checks target the latest release directly rather than waiting for a passive staged rollout.
 
 ```bash
 wukong upgrade
+wukong update
 ```
+
+Supported global package-manager installations can install interactively. Homebrew, native, non-interactive, and unrecognized installations print the appropriate manual command. See [Updates and announcements](/updates-and-announcements/) for startup checks, automatic-update settings, announcements, and version compatibility.
 
 ---
 
