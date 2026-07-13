@@ -12,17 +12,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.11] - 2026-07-13
 
+Wukong Code 0.0.11 closes the first hosted-evidence UX loop: generate proof locally, keep it private in hosted history by default, and create a public reviewer link only when explicitly requested.
+
 ### Added
-- TUI announcements fetched asynchronously from `https://wukong.today/cli/announcements.json`, with version/time targeting, display frequency, sanitization, and approved action links.
-- Explicit public hosted-report sharing through `wukong verify --upload --public`, `wukong scan --upload --public`, `wukong proof --upload --public`, and `wukong report upload <path> --public`; uploads remain private by default.
-- Logged-in `wukong today` output now includes hosted-report usage and the Dashboard link without making the local briefing depend on the network.
+- Non-blocking TUI announcements fetched from `https://wukong.today/cli/announcements.json`. Messages can target client versions and UTC time windows, use `once` / `cooldown` / `always` frequency, and link only to approved Wukong destinations.
+- Explicit public hosted-report sharing through `wukong verify --upload --public`, `wukong scan --upload --public`, `wukong proof --upload --public`, and `wukong report upload <path> --public`.
+- A hosted-evidence next step after `wukong proof`, showing the private-history and public-share commands instead of leaving upload undiscoverable.
+- Hosted-report plan, usage, quota, and Dashboard destination in logged-in `wukong today` output.
 
 ### Changed
-- Refined TUI welcome, loop status, proof actions, and footer alignment for narrow and wide terminals.
-- Reworked the Dashboard around real evidence history, quota, and clear next actions instead of generic SaaS metrics.
+- Hosted report uploads are private by default. A public reviewer link is created only with the explicit `--public` flag, and `--public` without `--upload` returns a usage error.
+- Refined TUI welcome, loop status, proof actions, status tracks, and footer alignment for narrow and wide terminals.
+- Reworked the Wukong Dashboard around real report history, evidence status, hosted quota, and task-oriented next actions instead of generic SaaS metrics.
+- Added public documentation for software updates, automatic-update controls, announcement privacy, operator JSON workflow, and version compatibility.
 
 ### Fixed
 - Hosted report visibility is now explicit end to end, so a public upload reliably returns a share link while ordinary uploads stay private.
+- Hosted usage and announcement network failures remain fail-open and never block the local briefing or TUI startup.
+- The public announcement endpoint now ships as cacheable static JSON with a five-minute cache policy and no authentication requirement.
 
 ## [0.0.10] - 2026-07-09
 
