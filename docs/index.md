@@ -22,10 +22,10 @@ A terminal-native AI coding agent built as the control and verification layer fo
 ## Why Wukong Code?
 
 {: .note }
-> **Proof, not just code** — Other agents write code. Wukong answers whether it can merge: `wukong verify` runs checks, `wukong scan` catches risks, `wukong proof` builds merge evidence, and `wukong guard` blocks dangerous commands.
+> **Loop until verified** — `wukong loop` writes, runs real repository checks, scans risks, asks a read-only reviewer, and iterates until the delivery gate passes or returns actionable blockers.
 
 {: .note }
-> **Loop control plane** — `/goal` drives a single objective. `/loop --until verify-pass` iterates locally until the gate passes. `wukong today` shows the Daily Proof Briefing.
+> **One result** — Loop returns `PASS`, `NEEDS_WORK`, or `ERROR`. The writer cannot approve its own change, and stale workspace conclusions are rejected.
 
 {: .note }
 > **Terminal-native** — Stay in your flow. No browser, no IDE plugin, no context switch.
@@ -57,6 +57,9 @@ wukong
 
 # Run a one-off prompt
 wukong -p "explain this repo"
+
+# Loop until the independent delivery gate passes
+wukong loop "finish the current change"
 
 # Set today's focus and check the Daily Proof Briefing
 wukong today "ship auth fix"

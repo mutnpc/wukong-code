@@ -21,7 +21,7 @@ can be merged, not just whether it can be written.
 
 {: .note }
 Wukong Code supports multiple providers — managed auth is optional. Bring your own keys.
-Use `wukong login` only when you want hosted report upload on wukong.today.
+Use `wukong login` for the Free monthly Loop allowance and optional hosted report upload.
 
 ---
 
@@ -75,6 +75,18 @@ Run a one-off prompt:
 ```bash
 wukong -p "summarize this repository"
 ```
+
+### `wukong loop <objective>`
+
+Run the primary write → check → review → fix workflow:
+
+```bash
+wukong loop "finish the current change"
+```
+
+Every Loop ends with `PASS`, `NEEDS_WORK`, or `ERROR`. Guest gets one local
+trial with up to two iterations. Run `wukong login` for 10 Free Loop sessions
+per month with up to five iterations each.
 
 ### `wukong today`
 

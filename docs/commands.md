@@ -54,7 +54,8 @@ wukong provider catalog add deepseek --api-key <key> --default-model deepseek-v4
 
 ### `wukong login`
 
-Authenticate via the device-code flow (needed for hosted report upload).
+Authenticate via the device-code flow. Login provides the Free monthly Loop
+allowance and is also required for hosted report upload.
 
 ```bash
 wukong login
@@ -152,7 +153,30 @@ wukong guard -- rm -rf ./tmp
 
 ---
 
-## Loop Control (TUI)
+## Loop Control
+
+### `wukong loop <objective>`
+
+Run the Loop-first delivery workflow in headless mode. Wukong works on the
+objective, executes the repository's real checks, scans the change, and uses a
+fresh-context read-only reviewer before returning a final result.
+
+```bash
+wukong loop "fix the failing tests"
+wukong loop "finish the API" --max-iterations 5 --every 30s
+wukong loop "review auth" --model fast --role security
+wukong loop "validate arguments" --dry-run
+```
+
+Results and exit codes: `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, auth/quota
+rejection `=3`, interruption `=130`. Guest gets one two-iteration local trial;
+signed-in Free gets 10 sessions/month with up to five iterations per session.
+Internal verify/scan/proof checks do not count separately.
+
+Legacy `--until verify-pass`, `scan-clean`, and `judge-pass` inputs remain
+accepted in 0.0.12 and map to the unified `proof-pass` gate.
+
+### TUI commands
 
 Inside the TUI:
 
@@ -163,19 +187,10 @@ Inside the TUI:
 | `/scan` | Risk scan |
 | `/proof` | Merge proof report |
 | `/judge` | Pass/block judgment |
-| `/goal` | Drive a single objective; optional `--until verify-pass\|scan-clean\|judge-pass` |
+| `/goal` | Drive a single objective; legacy `--until` values map to `proof-pass` |
 | `/loop` | Iterate locally until a verification gate passes |
 | `/guard` | Guard status |
 | `/report` | Open the latest verification, scan, or proof report |
-
-### `wukong loop`
-
-CLI entry for a local iteration loop with a verification gate. Prefer `/loop`
-in the TUI for the interactive driver.
-
-```bash
-wukong loop --until verify-pass --dry-run
-```
 
 ---
 

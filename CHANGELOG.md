@@ -8,7 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [0.0.12] - 2026-07-16
+
+Wukong Code 0.0.12 makes Loop the primary delivery workflow: write, run real repository checks, review from a fresh read-only context, and iterate until the result is actionable.
+
+### Added
+- Headless `wukong loop <objective>` and interactive `/loop` as the primary delivery workflow: work, real project checks, risk scan, fresh-context read-only review, and iterative repair.
+- Durable `PASS` / `NEEDS_WORK` / `ERROR` results with structured blockers, next actions, shared CLI/TUI/SDK semantics, and stable exit codes.
+- Nested monorepo check discovery, project-authorized `.wukong/checks.json`, shared workspace snapshots, and stale-conclusion rejection.
+- One two-iteration Guest trial and 10 signed-in Free Loop sessions per month with up to five iterations each; internal checks do not count separately.
+- Experimental Role Profiles for task-specific writer prompts, model selection, and tool allowlist narrowing.
+
+### Changed
+- `verify`, `scan`, and `proof` remain available as advanced diagnostics but are organized as internal Loop layers rather than separate products or quotas.
+- Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal records and flags remain readable and migrate in memory to the unified `proof-pass` gate.
+- Reports remain opt-in. 0.0.12 does not automatically persist or upload Loop evidence.
+
+### Fixed
+- A Loop can no longer claim success from the writer's self-assessment alone; deterministic blockers cannot be overridden by the reviewer.
+- Workspaces that change while checks are running no longer receive stale proof.
 
 ## [0.0.11] - 2026-07-13
 
