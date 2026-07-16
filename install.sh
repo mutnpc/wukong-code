@@ -66,7 +66,14 @@ echo "Installing Wukong Code ${VERSION} for ${TARGET}..."
 echo "Download URL: ${RELEASE_URL}"
 
 TMP_DIR="$(mktemp -d)"
-trap 'rm -rf "$TMP_DIR"' EXIT
+STAGED_BINARY=""
+cleanup() {
+  rm -rf "$TMP_DIR"
+  if [ -n "$STAGED_BINARY" ]; then
+    rm -f "$STAGED_BINARY"
+  fi
+}
+trap cleanup EXIT
 
 curl -fsSL "$RELEASE_URL" -o "${TMP_DIR}/${ARTIFACT}"
 curl -fsSL "$CHECKSUM_URL" -o "${TMP_DIR}/${ARTIFACT}.sha256"
@@ -93,9 +100,23 @@ fi
 
 echo "Verified SHA-256: ${ACTUAL_SHA256}"
 
+EXTRACT_DIR="${TMP_DIR}/extracted"
+mkdir -p "$EXTRACT_DIR"
+unzip -q "${TMP_DIR}/${ARTIFACT}" -d "$EXTRACT_DIR"
+if [ ! -f "${EXTRACT_DIR}/${BINARY_NAME}" ]; then
+  echo "Release archive does not contain ${BINARY_NAME}."
+  exit 1
+fi
+
+# Copy beside the current binary and then rename it into place. The final
+# rename is atomic on macOS/Linux, so an interrupted upgrade keeps the old
+# executable intact.
 mkdir -p "$INSTALL_DIR"
-unzip -o "${TMP_DIR}/${ARTIFACT}" -d "$INSTALL_DIR"
-chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+STAGED_BINARY="${INSTALL_DIR}/.${BINARY_NAME}.update.$$"
+cp "${EXTRACT_DIR}/${BINARY_NAME}" "$STAGED_BINARY"
+chmod +x "$STAGED_BINARY"
+mv -f "$STAGED_BINARY" "${INSTALL_DIR}/${BINARY_NAME}"
+STAGED_BINARY=""
 
 echo ""
 echo "Wukong Code installed to: ${INSTALL_DIR}/${BINARY_NAME}"
