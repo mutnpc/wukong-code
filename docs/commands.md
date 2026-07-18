@@ -55,7 +55,7 @@ wukong provider catalog add deepseek --api-key <key> --default-model deepseek-v4
 ### `wukong login`
 
 Authenticate via the device-code flow. Login provides the Free monthly Loop
-allowance and is also required for hosted report upload.
+allowance.
 
 ```bash
 wukong login
@@ -91,8 +91,6 @@ wukong verify --build
 wukong verify --command "pnpm test"
 wukong verify --json
 wukong verify --no-report
-wukong verify --upload
-wukong verify --upload --public
 ```
 
 ### `wukong scan`
@@ -103,8 +101,6 @@ Read-only risk scan of git changes.
 wukong scan
 wukong scan --json
 wukong scan --report ./reports/risk.md
-wukong scan --upload
-wukong scan --upload --public
 ```
 
 ### `wukong proof`
@@ -114,8 +110,6 @@ Generate a Merge Proof Report (verify + scan + recommendation).
 ```bash
 wukong proof
 wukong proof --json
-wukong proof --upload
-wukong proof --upload --public
 ```
 
 ### `wukong judge`
@@ -125,18 +119,6 @@ Deterministic pass/block judgment from proof signals (no model calls by default)
 ```bash
 wukong judge
 wukong judge --json
-```
-
-### `wukong report upload <path>`
-
-Upload an existing local report markdown file to wukong.today. Requires login.
-The type is auto-detected from the markdown content or can be set with `--type`.
-Uploads are private by default. Add `--public` only when you want a public link.
-
-```bash
-wukong report upload ./wukong-verify-report.md
-wukong report upload ./scan-report.md --type scan
-wukong report upload ./proof-report.md --public
 ```
 
 ### `wukong guard`

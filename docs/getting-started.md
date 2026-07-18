@@ -21,7 +21,7 @@ can be merged, not just whether it can be written.
 
 {: .note }
 Wukong Code supports multiple providers — managed auth is optional. Bring your own keys.
-Use `wukong login` for the Free monthly Loop allowance and optional hosted report upload.
+Use `wukong login` for the Free monthly Loop allowance.
 
 ---
 
@@ -90,7 +90,7 @@ per month with up to five iterations each.
 
 ### `wukong today`
 
-Show the Daily Proof Briefing (local stats, focus, next actions, and hosted-report usage when logged in):
+Show the Daily Proof Briefing (local stats, focus, and next actions):
 
 ```bash
 wukong today
@@ -133,22 +133,6 @@ Inspect risky commands before execution:
 ```bash
 wukong guard --status
 ```
-
----
-
-## Optional: Hosted Upload
-
-After `wukong login`, upload a redacted report:
-
-```bash
-wukong login
-wukong proof --upload           # private Dashboard history
-wukong proof --upload --public  # public share link
-# or
-wukong report upload ./wukong-verify-report.md
-```
-
-Device-code login opens `https://wukong.today/auth/device`.
 
 ---
 

@@ -24,7 +24,7 @@ Wukong Code stores configuration and data under `~/.wukong`
 | `WUKONG_CODE_HOME` | Override the default data directory (`~/.wukong`) |
 | `WUKONG_CODE_OAUTH_HOST` | OAuth host for device-code login (default: `https://wukong.today`) |
 | `WUKONG_CODE_BASE_URL` | Managed API base URL (default: `https://wukong.today/api/v1`) |
-| `WUKONG_API_URL` | Hosted report upload API base (default: `https://wukong.today`) |
+| `WUKONG_API_URL` | Wukong account and Loop quota API base (default: `https://wukong.today`) |
 | `WUKONG_CODE_CUSTOM_HEADERS` | Custom outbound LLM request headers |
 | `WUKONG_CODE_NO_AUTO_UPDATE` | Disable startup update checks, prompts, and background installation when set to `1`, `true`, `yes`, or `on` |
 | `WUKONG_CLI_NO_AUTO_UPDATE` | Legacy alias for `WUKONG_CODE_NO_AUTO_UPDATE` |
@@ -62,7 +62,7 @@ wukong provider
 
 Or edit `~/.wukong/config.toml` directly.
 
-Optional managed Wukong login (for hosted reports):
+Optional managed Wukong login (for monthly Loop allowance):
 
 ```bash
 wukong login

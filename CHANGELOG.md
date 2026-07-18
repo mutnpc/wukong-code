@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## Unreleased
+
+### Removed
+- Remove the retired cloud report upload, history, quota, and public sharing workflow. Evidence stays local when explicitly requested.
+
 ## [0.0.12] - 2026-07-16
 
 Wukong Code 0.0.12 makes Loop the primary delivery workflow: write, run real repository checks, review from a fresh read-only context, and iterate until the result is actionable.
@@ -22,7 +27,7 @@ Wukong Code 0.0.12 makes Loop the primary delivery workflow: write, run real rep
 ### Changed
 - `verify`, `scan`, and `proof` remain available as advanced diagnostics but are organized as internal Loop layers rather than separate products or quotas.
 - Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal records and flags remain readable and migrate in memory to the unified `proof-pass` gate.
-- Reports remain opt-in. 0.0.12 does not automatically persist or upload Loop evidence.
+- Evidence remains local and opt-in. 0.0.12 does not automatically persist Loop evidence.
 
 ### Fixed
 - A Loop can no longer claim success from the writer's self-assessment alone; deterministic blockers cannot be overridden by the reviewer.
@@ -30,23 +35,20 @@ Wukong Code 0.0.12 makes Loop the primary delivery workflow: write, run real rep
 
 ## [0.0.11] - 2026-07-13
 
-Wukong Code 0.0.11 closes the first hosted-evidence UX loop: generate proof locally, keep it private in hosted history by default, and create a public reviewer link only when explicitly requested.
+Wukong Code 0.0.11 improved terminal evidence, release announcements, and Loop status alignment.
 
 ### Added
 - Non-blocking TUI announcements fetched from `https://wukong.today/cli/announcements.json`. Messages can target client versions and UTC time windows, use `once` / `cooldown` / `always` frequency, and link only to approved Wukong destinations.
-- Explicit public hosted-report sharing through `wukong verify --upload --public`, `wukong scan --upload --public`, `wukong proof --upload --public`, and `wukong report upload <path> --public`.
-- A hosted-evidence next step after `wukong proof`, showing the private-history and public-share commands instead of leaving upload undiscoverable.
-- Hosted-report plan, usage, quota, and Dashboard destination in logged-in `wukong today` output.
+- Improved local proof output and diagnostic command ergonomics.
+- Kept `wukong today` local and fail-open.
 
 ### Changed
-- Hosted report uploads are private by default. A public reviewer link is created only with the explicit `--public` flag, and `--public` without `--upload` returns a usage error.
 - Refined TUI welcome, loop status, proof actions, status tracks, and footer alignment for narrow and wide terminals.
-- Reworked the Wukong Dashboard around real report history, evidence status, hosted quota, and task-oriented next actions instead of generic SaaS metrics.
+- Reworked the Wukong Dashboard around account, platform, and Loop status.
 - Added public documentation for software updates, automatic-update controls, announcement privacy, operator JSON workflow, and version compatibility.
 
 ### Fixed
-- Hosted report visibility is now explicit end to end, so a public upload reliably returns a share link while ordinary uploads stay private.
-- Hosted usage and announcement network failures remain fail-open and never block the local briefing or TUI startup.
+- Announcement network failures remain fail-open and never block the local briefing or TUI startup.
 - The public announcement endpoint now ships as cacheable static JSON with a five-minute cache policy and no authentication requirement.
 
 ## [0.0.10] - 2026-07-09
@@ -61,9 +63,7 @@ Wukong Code 0.0.11 closes the first hosted-evidence UX loop: generate proof loca
 
 ### Added
 - `wukong today` Daily Proof Briefing: local verify/scan/proof stats, streak, focus, and next actions. Run `wukong today` or `/today`.
-- M1 Hosted Reports: upload redacted `verify`/`scan`/`proof` reports to wukong.today with `wukong verify --upload`, `wukong scan --upload`, `wukong proof --upload`, or `wukong report upload <path>`.
-- Hosted report list and share page at `https://wukong.today/r/<id>`.
-- Per-tier monthly hosted report quota (founder/pro) with usage tracking.
+- Authenticated Loop usage and account status endpoints.
 - Loop-driven TUI chrome: Claude Code-style borderless editor, loop-phase heartbeat, and verify/proof conclusion tracks.
 
 ### Fixed

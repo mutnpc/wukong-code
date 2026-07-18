@@ -31,7 +31,7 @@ A terminal-native AI coding agent built as the control and verification layer fo
 > **Terminal-native** — Stay in your flow. No browser, no IDE plugin, no context switch.
 
 {: .note }
-> **Multi-provider** — Bring your own keys. Supports DeepSeek, Moonshot, OpenAI-compatible providers, and more. Optional `wukong login` for hosted reports on wukong.today.
+> **Multi-provider** — Bring your own keys. Supports DeepSeek, Moonshot, OpenAI-compatible providers, and more. Optional `wukong login` for the Free monthly Loop allowance.
 
 {: .note }
 > **Web UI & Server** — `wukong web` opens a local UI; `wukong server` exposes REST and WebSocket endpoints.
