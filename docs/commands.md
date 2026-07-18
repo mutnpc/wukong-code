@@ -77,13 +77,33 @@ wukong today --clear-focus
 
 In the TUI, `/today` shows the same briefing.
 
+### TUI `/resume`
+
+Resume an earlier Wukong session, or explicitly import read-only context from a
+supported local coding agent:
+
+```text
+/resume
+/resume codex
+/resume claude
+/resume cursor
+```
+
+Bare `/resume` shows Wukong sessions only. After selecting an external session,
+choose **Continue** or **Start Loop**; Wukong does not modify the source session
+and does not start a Loop until you confirm the editable objective.
+
 ---
 
-## Verification Commands
+## Advanced Local Diagnostics
+
+These commands are internal Loop layers. They remain available for diagnosis,
+but they are not separate products and do not consume separate quota.
 
 ### `wukong verify`
 
-Run deterministic checks on the current workspace and write an evidence report.
+Run deterministic checks on the current workspace and optionally write a local
+evidence report.
 
 ```bash
 wukong verify
@@ -105,7 +125,7 @@ wukong scan --report ./reports/risk.md
 
 ### `wukong proof`
 
-Generate a Merge Proof Report (verify + scan + recommendation).
+Generate a local verify + scan + recommendation summary.
 
 ```bash
 wukong proof
@@ -156,7 +176,7 @@ signed-in Free gets 10 sessions/month with up to five iterations per session.
 Internal verify/scan/proof checks do not count separately.
 
 Legacy `--until verify-pass`, `scan-clean`, and `judge-pass` inputs remain
-accepted in 0.0.12 and map to the unified `proof-pass` gate.
+accepted in 0.0.14 and map to the unified `proof-pass` gate.
 
 ### TUI commands
 
@@ -164,6 +184,8 @@ Inside the TUI:
 
 | Slash command | Description |
 |---|---|
+| `/resume` | Resume a Wukong session |
+| `/resume codex\|claude\|cursor` | Import read-only context from a supported local agent |
 | `/today` | Daily Proof Briefing |
 | `/verify` | Run verification |
 | `/scan` | Risk scan |
@@ -172,7 +194,7 @@ Inside the TUI:
 | `/goal` | Drive a single objective; legacy `--until` values map to `proof-pass` |
 | `/loop` | Iterate locally until a verification gate passes |
 | `/guard` | Guard status |
-| `/report` | Open the latest verification, scan, or proof report |
+| `/report` | Open the latest local verification, scan, or proof report |
 
 ---
 

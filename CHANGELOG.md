@@ -10,8 +10,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.0.14] - 2026-07-18
+
+Wukong Code 0.0.14 makes it easier to continue unfinished work and understand whether a Loop is actually ready to stop.
+
+### Added
+- Add `/resume codex`, `/resume claude`, and `/resume cursor` to discover local sessions from supported coding agents and continue them in Wukong through a read-only context handoff.
+- Add an explicit Continue / Start Loop choice before importing an external session; the Loop objective remains editable and never starts without confirmation.
+- Discover more real project checks in nested workspaces and monorepos.
+
+### Changed
+- Make `/resume` show Wukong sessions only. Source-specific compatibility aliases remain available but stay out of the primary command list.
+- Replace ambiguous TUI footer text with a clear Gate result, primary blocker, and next action.
+- Keep `verify`, `scan`, and `proof` as advanced local diagnostics inside the Loop rather than separate products or quotas.
+- Keep the release free and bring-your-own-key. Payments and real Pro entitlements remain deferred to 0.1.0.
+
 ### Removed
-- Remove the retired cloud report upload, history, quota, and public sharing workflow. Evidence stays local when explicitly requested.
+- Remove the retired cloud report upload, hosted history, quota, and public sharing workflow from the product.
+
+## [0.0.13] - 2026-07-16
+
+Wukong Code 0.0.13 improves the independent review step inside Loop without adding payment or hosted report dependencies.
+
+### Added
+- Add structured multi-finding reviews, project-specific rules in `.wukong/review-policy.md`, local finding feedback, and review diagnostics.
+- Add an optional independent reviewer model for stronger separation between writing and reviewing.
+
+### Changed
+- Keep the release free and bring-your-own-key; payment remains deferred to 0.1.0.
 
 ## [0.0.12] - 2026-07-16
 

@@ -7,9 +7,9 @@ permalink: /getting-started/
 
 # Getting Started
 
-Wukong Code is a terminal-native AI coding agent built as the **control and
-verification layer for AI Coding Loops** — it answers whether AI-written code
-can be merged, not just whether it can be written.
+Wukong Code is a terminal-native AI coding agent built around
+**Resume → Loop → Gate**: continue unfinished work, iterate with the repository's
+real checks, and stop with a clear result.
 
 ---
 
@@ -68,6 +68,17 @@ Launch the interactive TUI:
 wukong
 ```
 
+Inside the TUI, resume local context from another supported coding agent:
+
+```text
+/resume codex
+/resume claude
+/resume cursor
+```
+
+The source session is read-only. You choose whether to continue normally or
+start an editable Loop objective.
+
 ### `wukong -p <prompt>`
 
 Run a one-off prompt:
@@ -100,7 +111,11 @@ wukong today --clear-focus
 
 ---
 
-## Verification
+## Advanced Local Diagnostics
+
+`verify`, `scan`, and `proof` are available for diagnosis, but the primary
+product workflow is `wukong loop`; these checks are internal Loop layers rather
+than separate products or quotas.
 
 ### `wukong verify`
 
