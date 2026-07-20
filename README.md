@@ -101,11 +101,16 @@ Inside the TUI, `/resume`, `/resume codex`, `/resume claude`, `/resume cursor`,
 and `/loop` are the primary workflow. Advanced local diagnostics remain
 available through `/verify`, `/scan`, `/proof`, `/judge`, and `/guard`.
 
-Version 0.0.14 provides one two-iteration Guest trial. Signed-in Free users get
-10 Loop sessions per month with up to five iterations each. Internal verify,
-scan, and proof checks do not consume extra quota. Loop exits with `0` for
+The current Loop allowance provides one two-iteration Guest trial. Signed-in
+Free users get 10 Loop sessions per month with up to five iterations each.
+Internal verify, scan, and proof checks do not consume extra quota. Loop exits with `0` for
 `PASS`, `1` for `NEEDS_WORK`, `2` for `ERROR`, `3` for auth/quota rejection,
 and `130` when interrupted.
+
+The installer and CLI send anonymous product events such as install success,
+first run, and Loop lifecycle state. They never include source code, prompts,
+transcripts, repository names, or file paths. Set `WUKONG_TELEMETRY=0` to opt
+out; local Loop behavior is unchanged.
 
 Run `wukong --help` for the full option list.
 

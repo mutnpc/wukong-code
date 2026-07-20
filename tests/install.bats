@@ -36,6 +36,8 @@ while [ $# -gt 0 ]; do
     shift
 done
 
+echo "$URL" >> "$TEST_DIR/curl.log"
+
 if echo "$URL" | grep -q "releases/latest"; then
     echo '{"tag_name":"v0.0.10"}'
     exit 0
@@ -80,10 +82,11 @@ teardown() {
     [[ "$output" == *"Verified SHA-256"* ]]
 }
 
-@test "respects WUKONG_VERSION override" {
-    WUKONG_VERSION=v0.0.7 run ./install.sh
+@test "fresh installer pins the 0.0.15 candidate when explicitly requested" {
+    WUKONG_VERSION=v0.0.15 run ./install.sh
     [ "$status" -eq 0 ]
-    [[ "$output" == *"v0.0.7"* ]]
+    [[ "$output" == *"v0.0.15"* ]]
+    grep -q "/releases/download/v0.0.15/wukong-darwin-x64.zip" "$TEST_DIR/curl.log"
     [ -x "$HOME/.wukong/bin/wukong" ]
 }
 
@@ -93,6 +96,23 @@ teardown() {
     run ./install.sh
     [ "$status" -eq 0 ]
     [ -x "$CUSTOM_DIR/wukong" ]
+}
+
+@test "records anonymous install success and prepares the first-run marker" {
+    run ./install.sh
+    [ "$status" -eq 0 ]
+    grep -q "telemetry-logs.wukong.today/v1/event" "$TEST_DIR/curl.log"
+    [ -s "$HOME/.wukong/device_id" ]
+    [ -f "$HOME/.wukong/install_first_run_pending" ]
+    [[ "$output" == *"WUKONG_TELEMETRY=0"* ]]
+}
+
+@test "WUKONG_TELEMETRY=0 disables install telemetry" {
+    WUKONG_TELEMETRY=0 run ./install.sh
+    [ "$status" -eq 0 ]
+    ! grep -q "telemetry-logs.wukong.today/v1/event" "$TEST_DIR/curl.log"
+    [ ! -e "$HOME/.wukong/device_id" ]
+    [[ "$output" != *"Anonymous install telemetry is enabled"* ]]
 }
 
 @test "fails on unsupported platform" {
@@ -126,14 +146,13 @@ EOF
 }
 
 @test "prints PATH hint when install dir is not on PATH" {
-    export PATH="/usr/bin:/bin"
     run ./install.sh
     [ "$status" -eq 0 ]
     [[ "$output" == *"Add the following to your shell profile"* ]]
 }
 
 @test "does not print PATH hint when install dir is already on PATH" {
-    export PATH="$HOME/.wukong/bin:/usr/bin:/bin"
+    export PATH="$HOME/.wukong/bin:$MOCK_BIN:/usr/bin:/bin"
     run ./install.sh
     [ "$status" -eq 0 ]
     [[ "$output" != *"Add the following to your shell profile"* ]]

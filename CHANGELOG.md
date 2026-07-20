@@ -8,7 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## Unreleased
+## [0.0.15] - 2026-07-20
+
+Wukong Code 0.0.15 makes the Loop recoverable across restarts and reliable through completion reporting failures.
+
+### Added
+- Add durable local Loop run records and a retryable completion outbox so a network failure or CLI restart does not lose terminal accounting.
+- Add startup recovery for active Loops with explicit Resume, End as cancelled, and View details actions.
+- Add preflight for model, workspace, objective, active Goal, and project-check discovery before quota reservation.
+- Add anonymous install, first-run, Resume, Loop start/iteration/terminal, and 7-day repeat events with `WUKONG_TELEMETRY=0` opt-out.
+
+### Changed
+- Reduce the initial TUI to Continue a task, Start a Loop, and Configure model.
+- Reduce terminal Loop results to Gate, Iterations, primary Blocker, and Next.
+- Show active, stale, completed, cancelled, and abandoned Loop lifecycle states in the Dashboard.
+- Keep source code, prompts, transcripts, repository names, paths, model identity, terminal details, locale, and OS version out of product telemetry.
+
+### Fixed
+- Keep cancelled and abandoned runs out of PASS / NEEDS_WORK / ERROR outcome counts.
+- Return actionable NEEDS_WORK guidance when source changed without project checks, and distinguish unavailable tools from failed code.
 
 ## [0.0.14] - 2026-07-18
 
