@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+## [0.0.16] - 2026-07-21
+
+### Added
+- Freeze each Loop around a user-owned acceptance contract and carry prior blocking findings across review iterations.
+- Detect repeated blocker sets, run one fresh-context read-only strategist, and stop with `NEEDS_WORK/no_progress` when the strategy change does not unblock the Loop.
+- Retry invalid reviewer output once and fall back once from an unavailable explicit reviewer model to the writer model, while keeping cancellation and infrastructure failures distinct.
+- Add bounded current-workspace Resume suggestions, editable Resume-to-Loop handoff coverage for Codex, Claude Code, and Cursor, and cancellable local prompt search for recent Wukong sessions.
+- Add input, output, and capability contracts to Role Profiles.
+
+### Changed
+- Make Auto a guarded non-interactive mode and YOLO an explicit approval bypass; headless YOLO now requires `--yolo --yes`.
+- Keep one compact background-task count in the footer and retain detailed task control in `/tasks`.
+
+### Security
+- Prevent planner, reviewer, strategist, and read-only explorer agents from inheriting Bash, mutating tools, or unclassified custom/MCP capabilities from a more permissive parent.
+
 ## [0.0.15] - 2026-07-20
 
 Wukong Code 0.0.15 makes the Loop recoverable across restarts and reliable through completion reporting failures.
