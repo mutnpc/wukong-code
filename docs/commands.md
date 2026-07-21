@@ -7,25 +7,41 @@ permalink: /commands/
 
 # Command Reference
 
-{: .highlight }
-Run `wukong --help` for the most up-to-date options.
-Full docs live at [docs.wukong.today](https://docs.wukong.today).
+This reference describes the public v0.0.16 binary.
 
-## Global Options
+{: .highlight }
+Run `wukong --help` or `wukong <command> --help` against your installed version
+when exact options matter.
+
+## Global options
 
 | Option | Description |
 |---|---|
 | `-h, --help` | Show help |
-| `-V, --version` | Show version |
+| `-V, --version` | Show the installed version |
+| `-S, --session [id]` | Resume a session by ID or choose one interactively |
+| `-c, --continue` | Continue the previous session for the current workspace |
 | `-p, --prompt <prompt>` | Run one prompt non-interactively |
-| `-c, --continue` | Continue the previous session |
-| `-S, --session [id]` | Resume a session |
-| `--yes, --yolo` | Automatically approve all actions |
+| `-m, --model <model>` | Select a configured model alias |
+| `--role <role>` | Select an experimental role profile |
+| `--auto` | Run autonomously with workspace and high-risk guardrails |
+| `-y, --yolo` | Skip ordinary approvals; hard limits still apply |
+| `--output-format <format>` | Select `text` or `stream-json` prompt output |
+| `--skills-dir <dir>` | Add a Skill directory; may be repeated |
+| `--add-dir <dir>` | Add another workspace directory; may be repeated |
 | `--plan` | Start in plan mode |
 
----
+For dangerous headless prompt execution, `--yolo` also requires the hidden
+confirmation flag `--yes`:
 
-## Core Commands
+```bash
+wukong -p "finish the current change" --yolo --yes
+```
+
+`--yes` by itself does not enable YOLO. The legacy `--auto-approve` option is
+accepted for one compatibility window, maps to YOLO, and prints a warning.
+
+## Primary workflow
 
 ### `wukong`
 
@@ -37,50 +53,65 @@ wukong
 
 ### `wukong -p <prompt>`
 
-Run a single prompt and print the response.
+Run one prompt and print the response.
 
 ```bash
 wukong -p "explain the project structure"
 ```
 
-### `wukong provider`
+Headless prompt mode defaults to guarded Auto. Use `--output-format
+stream-json` for machine-readable event output.
 
-Manage LLM providers.
+### `wukong loop <goal>`
 
-```bash
-wukong provider
-wukong provider catalog add deepseek --api-key <key> --default-model deepseek-v4-pro
-```
-
-### `wukong login`
-
-Authenticate via the device-code flow. Login provides the Free monthly Loop
-allowance.
+Run the write → check → review → fix workflow without opening the TUI.
 
 ```bash
-wukong login
+wukong loop "fix the failing tests"
+wukong loop "finish the API" --max-iterations 5 --every 30s
+wukong loop "review auth" --model fast --role security
+wukong loop "finish validation" --review-model reviewer
+wukong loop "validate arguments" --dry-run
 ```
 
-Opens `https://wukong.today/auth/device`. OAuth endpoints live on `wukong.today`
-(not a separate `auth.*` subdomain).
+| Option | Description |
+|---|---|
+| `--max-iterations <n>` | Maximum Loop iterations |
+| `--every <duration>` | Minimum delay between iterations, such as `30s` or `5m` |
+| `--model <alias>` | Writer model alias |
+| `--review-model <alias>` | Independent reviewer model alias |
+| `--role <role>` | Writer role profile |
+| `--dry-run` | Validate the plan without starting a Loop |
+| `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-### `wukong today`
+v0.0.16 freezes the goal and optional finish condition when the Loop starts.
+Every review must account for earlier blockers. Repeated identical blockers
+trigger one fresh read-only strategy; if that still makes no progress, the Loop
+returns `NEEDS_WORK/no_progress`.
 
-Show the Daily Proof Briefing: today's verify/scan/proof/guard stats, streak,
-last proof summary, and next suggestions. Optionally set or clear focus.
+Loop results and exit codes:
 
-```bash
-wukong today
-wukong today "ship auth fix"
-wukong today --clear-focus
+| Result | Exit code | Meaning |
+|---|---:|---|
+| `PASS` | `0` | The fixed target passed checks and review |
+| `NEEDS_WORK` | `1` | A blocker, permission requirement, limit, or no-progress stop remains |
+| `ERROR` | `2` | The Loop could not produce a trustworthy result |
+| Auth/quota rejected | `3` | Login or allowance explicitly rejected the run |
+| Interrupted | `130` | The user or process interrupted the run |
+
+Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal inputs remain readable
+in v0.0.16 and map to the unified `proof-pass` gate.
+
+### TUI `/loop`
+
+```text
+/loop add input validation to the signup form
+/loop --review-model reviewer -- finish the current change
+/loop status
+/loop stop
 ```
-
-In the TUI, `/today` shows the same briefing.
 
 ### TUI `/resume`
-
-Resume an earlier Wukong session, or explicitly import read-only context from a
-supported local coding agent:
 
 ```text
 /resume
@@ -89,21 +120,116 @@ supported local coding agent:
 /resume cursor
 ```
 
-Bare `/resume` shows Wukong sessions only. After selecting an external session,
-choose **Continue** or **Start Loop**; Wukong does not modify the source session
-and does not start a Loop until you confirm the editable objective.
+Bare `/resume` lists Wukong sessions. An explicit source scans that agent's
+local sessions. External history is imported as read-only context; old tool
+calls are never replayed.
 
----
+The compatibility aliases `/resume-codex`, `/resume-claude`, and
+`/resume-cursor` still work but are hidden from the primary command list.
 
-## Advanced Local Diagnostics
+## Providers and account
 
-These commands are internal Loop layers. They remain available for diagnosis,
-but they are not separate products and do not consume separate quota.
+### `wukong provider`
+
+Manage providers non-interactively:
+
+```bash
+wukong provider list
+wukong provider catalog --help
+wukong provider add <registry-url>
+wukong provider remove <provider-id>
+```
+
+Inside the TUI, `/provider` opens the guided provider manager.
+
+### `wukong login`
+
+Authenticate through Device Login for the signed-in Free Loop allowance.
+
+```bash
+wukong login
+```
+
+The browser flow uses `https://wukong.today/auth/device`. Login does not replace
+the model provider API key used for inference.
+
+## Review policy and feedback
+
+### `wukong review`
+
+```bash
+wukong review init
+wukong review feedback <finding-id> accept
+wukong review stats
+```
+
+- `init` creates `.wukong/review-policy.md` in the current project.
+- `feedback` records local finding feedback.
+- `stats` shows local feedback counts and hides quality ratios for very small
+  samples.
+
+The TUI `/review` command exposes the same review-policy and feedback workflow.
+
+## Roles and subagents
+
+### `wukong roles`
+
+Role profiles are experimental.
+
+```bash
+wukong roles list
+wukong roles show security
+wukong roles init my-role
+wukong --role security
+```
+
+Enable them with `experimental.role_profiles` in `~/.wukong/config.toml` or
+`WUKONG_CODE_EXPERIMENTAL_ROLE_PROFILES=1`.
+
+Inside the TUI:
+
+| Command | Description |
+|---|---|
+| `/transform <role>` | Switch the active role |
+| `/transform list` | List available roles |
+| `/transform off` | Return to the default role |
+| `/swarm on` | Enable delegation mode |
+| `/swarm off` | Disable delegation mode |
+| `/swarm <task>` | Start a task with delegation enabled |
+| `/btw <question>` | Ask a forked side agent a focused question |
+| `/tasks` | Browse background agents |
+
+Role and subagent capabilities may narrow the parent agent's tool set. They
+cannot expand hard denies or a read-only reviewer/strategist boundary.
+
+## Permission modes
+
+| Mode | Behavior |
+|---|---|
+| Manual | Ask when an approval rule requires user input |
+| Auto | Do not ask; block workspace escapes, sensitive targets, high-risk commands, and unclassified external tools |
+| YOLO | Skip ordinary approvals, but keep explicit denies, safety hooks, plan guards, role limits, and read-only limits |
+
+TUI commands:
+
+```text
+/permission
+/auto
+/yolo
+/settings
+```
+
+If Auto blocks an action during a Loop, the Loop stops as
+`NEEDS_WORK/permission_required` instead of silently approving it.
+
+## Advanced diagnostics
+
+These commands remain available for diagnosis and CI. Loop runs them as
+internal layers, so they are not separate products or separate quotas.
 
 ### `wukong verify`
 
-Run deterministic checks on the current workspace and optionally write a local
-evidence report.
+Run the project checks discovered by Loop.
 
 ```bash
 wukong verify
@@ -115,7 +241,7 @@ wukong verify --no-report
 
 ### `wukong scan`
 
-Read-only risk scan of git changes.
+Run the read-only risk rules used by Loop.
 
 ```bash
 wukong scan
@@ -125,25 +251,27 @@ wukong scan --report ./reports/risk.md
 
 ### `wukong proof`
 
-Generate a local verify + scan + recommendation summary.
+Inspect the combined delivery-gate inputs.
 
 ```bash
 wukong proof
 wukong proof --json
+wukong proof --no-report
 ```
 
 ### `wukong judge`
 
-Deterministic pass/block judgment from proof signals (no model calls by default).
+Make a deterministic merge decision without model calls by default.
 
 ```bash
 wukong judge
+wukong judge --strict
 wukong judge --json
 ```
 
 ### `wukong guard`
 
-Inspect or run the command risk guard.
+Inspect or run the best-effort command risk guard.
 
 ```bash
 wukong guard --status
@@ -153,137 +281,51 @@ wukong guard --disable
 wukong guard -- rm -rf ./tmp
 ```
 
----
+The TUI equivalents `/verify`, `/scan`, and `/proof` are hidden advanced
+commands. `/judge`, `/guard`, and `/report` remain visible utility commands.
 
-## Loop Control
-
-### `wukong loop <objective>`
-
-Run the Loop-first delivery workflow in headless mode. Wukong works on the
-objective, executes the repository's real checks, scans the change, and uses a
-fresh-context read-only reviewer before returning a final result.
-
-```bash
-wukong loop "fix the failing tests"
-wukong loop "finish the API" --max-iterations 5 --every 30s
-wukong loop "review auth" --model fast --role security
-wukong loop "validate arguments" --dry-run
-```
-
-Results and exit codes: `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, auth/quota
-rejection `=3`, interruption `=130`. Guest gets one two-iteration local trial;
-signed-in Free gets 10 sessions/month with up to five iterations per session.
-Internal verify/scan/proof checks do not count separately.
-
-Legacy `--until verify-pass`, `scan-clean`, and `judge-pass` inputs remain
-accepted in 0.0.14 and map to the unified `proof-pass` gate.
-
-### TUI commands
-
-Inside the TUI:
-
-| Slash command | Description |
-|---|---|
-| `/resume` | Resume a Wukong session |
-| `/resume codex\|claude\|cursor` | Import read-only context from a supported local agent |
-| `/today` | Daily Proof Briefing |
-| `/verify` | Run verification |
-| `/scan` | Risk scan |
-| `/proof` | Merge proof report |
-| `/judge` | Pass/block judgment |
-| `/goal` | Drive a single objective; legacy `--until` values map to `proof-pass` |
-| `/loop` | Iterate locally until a verification gate passes |
-| `/guard` | Guard status |
-| `/report` | Open the latest local verification, scan, or proof report |
-
----
-
-## Planned Commands
-
-{: .warning }
-> The commands below are **not yet shipped**. They are tracked in the roadmap
-> as future milestones.
-
-| Command | Description |
-|---|---|
-| `wukong ship` | Release gate: proof + version/changelog checks + dry-run |
-| `wukong schedule` | Cloud routine that keeps running when your machine is off (hosted, later) |
-
----
-
-## Server & Web Commands
-
-### `wukong server`
-
-Start the local REST/WebSocket server.
-
-```bash
-wukong server run --foreground
-```
-
-### `wukong web`
-
-Open the local web UI.
-
-```bash
-wukong web
-```
-
----
-
-## Utility Commands
-
-### `wukong doctor`
-
-Validate configuration files.
-
-```bash
-wukong doctor
-```
-
-### `wukong export [sessionId]`
-
-Export a session as a ZIP file.
-
-```bash
-wukong export
-wukong export <session-id>
-```
-
-### `wukong vis [sessionId]`
-
-Open the session visualizer.
-
-```bash
-wukong vis
-wukong vis <session-id>
-```
-
-### `wukong migrate`
-
-Migrate legacy Wukong data.
-
-```bash
-wukong migrate
-```
+## Updates
 
 ### `wukong upgrade` / `wukong update`
 
-Check the public version manifest and upgrade to the latest version. The `update` command is an alias. Manual checks target the latest release directly rather than waiting for a passive staged rollout.
+Check the public version manifest and install the latest release directly.
 
 ```bash
 wukong upgrade
 wukong update
 ```
 
-Supported global package-manager installations can install interactively. Homebrew, native, non-interactive, and unrecognized installations print the appropriate manual command. See [Updates and announcements](/updates-and-announcements/) for startup checks, automatic-update settings, announcements, and version compatibility.
+Supported package managers, Homebrew, and native macOS/Linux installations can
+complete an explicit upgrade automatically. Native upgrades verify the release
+SHA-256 before atomically replacing the binary. Native Windows and unknown
+installation sources fall back to the download page.
 
----
+See [Updates and announcements](/updates-and-announcements/).
 
-## Exit Codes
+## Local server and web UI
 
-| Code | Meaning |
+```bash
+wukong web
+wukong server run --foreground
+wukong server ps
+wukong server kill
+wukong server rotate-token
+```
+
+`wukong web` binds to loopback by default and starts the local daemon when
+needed. Review `wukong web --help` before binding to a non-loopback interface;
+remote terminal and shutdown routes remain restricted by default.
+
+## Other shipped commands
+
+| Command | Description |
 |---|---|
-| `0` | Success |
-| `1` | Command failure or high-risk verification |
-| `2` | Invalid arguments or environment error |
+| `wukong doctor` | Validate configuration files |
+| `wukong today` | Show the local Daily Proof Briefing and manage its focus |
+| `wukong export [sessionId]` | Export a session ZIP |
+| `wukong vis [sessionId]` | Open the session visualizer |
+| `wukong migrate` | Migrate legacy Wukong data |
+| `wukong acp` | Run as an Agent Client Protocol server |
+
+`wukong today` remains a secondary local utility; it is not the primary Loop
+workflow and `/today` is not part of the current visible TUI command surface.

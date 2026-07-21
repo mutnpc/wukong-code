@@ -7,92 +7,172 @@ permalink: /configuration/
 
 # Configuration
 
-Wukong Code stores configuration and data under `~/.wukong`
-(or `$WUKONG_CODE_HOME` when set).
+Wukong Code stores user configuration and local state under `~/.wukong`, or
+under `$WUKONG_CODE_HOME` when that environment variable is set.
 
 ```text
 ~/.wukong/
   config.toml
   tui.toml
   credentials/
+  roles/
 ```
 
-## Environment Variables
+Project review policy and project-scoped roles live in the repository:
 
-| Variable | Description |
-|---|---|
-| `WUKONG_CODE_HOME` | Override the default data directory (`~/.wukong`) |
-| `WUKONG_CODE_OAUTH_HOST` | OAuth host for device-code login (default: `https://wukong.today`) |
-| `WUKONG_CODE_BASE_URL` | Managed API base URL (default: `https://wukong.today/api/v1`) |
-| `WUKONG_API_URL` | Wukong account and Loop quota API base (default: `https://wukong.today`) |
-| `WUKONG_TELEMETRY` | Set to `0` to disable anonymous installer and CLI product telemetry |
-| `WUKONG_DISABLE_TELEMETRY` | Legacy opt-out alias; set to `1` |
-| `WUKONG_CODE_CUSTOM_HEADERS` | Custom outbound LLM request headers |
-| `WUKONG_CODE_NO_AUTO_UPDATE` | Disable startup update checks, prompts, and background installation when set to `1`, `true`, `yes`, or `on` |
-| `WUKONG_CLI_NO_AUTO_UPDATE` | Legacy alias for `WUKONG_CODE_NO_AUTO_UPDATE` |
+```text
+.wukong/
+  review-policy.md
+  roles/
+```
 
-### Example
+Do not commit user credentials or private local state.
+
+## Configure providers
+
+Open the guided provider manager inside the TUI:
+
+```text
+/provider
+```
+
+Or use the non-interactive command surface:
 
 ```bash
-WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
+wukong provider --help
+wukong provider list
 ```
 
-{: .note }
-Device-code OAuth and hosted uploads use **`https://wukong.today`**.
-There is no separate `auth.wukong.today` host.
+Wukong uses the provider API key and model you select. Device Login is separate
+and is used only for the Free Loop allowance and account state.
 
-## Automatic updates
+## Permission mode
 
-Background automatic installation is enabled by default for supported global package-manager installations. Configure it in the TUI through `/settings` → **Upgrade**, or edit `~/.wukong/tui.toml`:
+The active permission mode can be selected through `/permission` or
+`/settings`, or set in `~/.wukong/config.toml`:
+
+```toml
+default_permission_mode = "manual"
+```
+
+Accepted modes:
+
+- `manual`: ask when an approval rule requires user input.
+- `auto`: do not ask; block workspace escapes, sensitive targets, high-risk
+  commands, and unclassified external tools.
+- `yolo`: skip ordinary approval, while keeping explicit denies, safety hooks,
+  plan guards, role limits, and read-only agent limits.
+
+Headless prompt mode defaults to guarded Auto. `--yes` alone does not enable
+YOLO; dangerous headless execution requires `--yolo --yes`.
+
+## Role profiles
+
+Role profiles are experimental. Enable them in `~/.wukong/config.toml`:
+
+```toml
+[experimental]
+role_profiles = true
+```
+
+Or set:
+
+```bash
+export WUKONG_CODE_EXPERIMENTAL_ROLE_PROFILES=1
+```
+
+User roles live in `~/.wukong/roles/`. Project roles live in
+`.wukong/roles/` and require an explicit `project:<name>` selection in a trusted
+workspace. A project role cannot silently replace a built-in role.
+
+```bash
+wukong roles list
+wukong roles show security
+wukong roles init my-role
+```
+
+A role can select instructions, a model, and a narrower tool allowlist. It
+cannot expand hard safety boundaries.
+
+## Resume suggestions
+
+The TUI may suggest one unfinished Codex, Claude Code, or Cursor session for the
+current workspace. Disable automatic foreign-session suggestions in
+`~/.wukong/tui.toml`:
+
+```toml
+[resume]
+foreign_suggestions = false
+```
+
+This stops the welcome screen from scanning those directories. Explicit
+`/resume codex`, `/resume claude`, and `/resume cursor` commands still work.
+
+## Automatic update preference
+
+Package-manager installations can update in the background at startup. Change
+the preference through `/settings` → **Upgrade** or in `~/.wukong/tui.toml`:
 
 ```toml
 [upgrade]
 auto_install = false
 ```
 
-This preference stops background installation but leaves update checks and prompts enabled. Use `WUKONG_CODE_NO_AUTO_UPDATE=1` to disable the startup update preflight completely. Neither setting disables TUI announcements. See [Updates and announcements](/updates-and-announcements/).
+This disables background installation but keeps version checks and prompts.
+Use `WUKONG_CODE_NO_AUTO_UPDATE=1` to disable the startup update preflight
+completely. Neither setting disables announcements.
 
-## Anonymous product telemetry
+Explicit `wukong upgrade` remains available. Native macOS/Linux upgrades verify
+the release SHA-256 and replace the binary atomically.
 
-The installer and CLI record only install/first-run/Loop lifecycle events with
-the CLI version, OS family, and CPU architecture. Source code, diffs, prompts,
-objectives, transcripts, repository names, file paths, provider keys, and
-endpoints are excluded. Disable these events with:
+## Environment variables
+
+| Variable | Description |
+|---|---|
+| `WUKONG_CODE_HOME` | Override the user data directory (`~/.wukong`) |
+| `WUKONG_CODE_OAUTH_HOST` | Override the Device Login host (default `https://wukong.today`) |
+| `WUKONG_CODE_BASE_URL` | Override the Wukong account API base (default `https://wukong.today/api/v1`) |
+| `WUKONG_API_URL` | Override the Loop allowance API origin (default `https://wukong.today`) |
+| `WUKONG_CODE_CUSTOM_HEADERS` | Newline-separated custom headers for outbound model requests |
+| `WUKONG_CODE_EXPERIMENTAL_ROLE_PROFILES` | Set to `1` to enable experimental role profiles |
+| `WUKONG_CODE_NO_AUTO_UPDATE` | Disable startup version checks, prompts, and background installation |
+| `WUKONG_CLI_NO_AUTO_UPDATE` | Legacy alias for `WUKONG_CODE_NO_AUTO_UPDATE` |
+| `WUKONG_TELEMETRY` | Set to `0` or `false` to disable anonymous product events |
+| `WUKONG_DISABLE_TELEMETRY` | Legacy opt-out alias; set to `1`, `true`, or `yes` |
+
+Example with an isolated data directory:
+
+```bash
+WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
+```
+
+Device Login and account APIs use `wukong.today` by default. There is no
+separate `auth.wukong.today` host and no hosted report upload workflow in
+v0.0.16.
+
+## Anonymous product events
+
+The installer and CLI record only installation, first-run, Device Login, and
+Loop lifecycle events with basic version/platform fields. They exclude source
+code, diffs, prompts, objectives, transcripts, repository names, file paths,
+provider keys, and provider endpoints.
+
+Disable anonymous product events with:
 
 ```bash
 export WUKONG_TELEMETRY=0
 ```
 
-Opting out does not change local Loop behavior. Signed-in quota accounting is
-part of the account service contract and remains separate from anonymous
-telemetry.
+Opting out does not change local Loop behavior. Signed-in allowance accounting
+is part of the account contract and remains separate from anonymous events.
 
----
+## Configuration priority
 
-## Configure Providers
-
-Use the interactive provider command:
-
-```bash
-wukong provider
-```
-
-Or edit `~/.wukong/config.toml` directly.
-
-Optional managed Wukong login (for monthly Loop allowance):
-
-```bash
-wukong login
-```
-
----
-
-## Configuration Priority
-
-{: .note }
-Settings are resolved in order — later sources override earlier ones.
+Later sources override earlier sources:
 
 1. Built-in defaults
-2. Config files in `WUKONG_CODE_HOME`
+2. Files under `WUKONG_CODE_HOME`
 3. Environment variables
 4. Command-line options
+
+Run `wukong doctor` after editing configuration files.

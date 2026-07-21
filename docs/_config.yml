@@ -1,5 +1,5 @@
 title: Wukong Code Docs
-description: Wukong Code documentation — terminal AI coding agent with /verify /scan /proof, local loops, and wukong today.
+description: Wukong Code documentation — Resume unfinished work and Loop until the change is ready.
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme

@@ -7,151 +7,190 @@ permalink: /getting-started/
 
 # Getting Started
 
-Wukong Code is a terminal-native AI coding agent built around
-**Resume → Loop → Gate**: continue unfinished work, iterate with the repository's
-real checks, and stop with a clear result.
-
----
+Wukong Code v0.0.16 is a terminal AI coding agent centered on one workflow:
+**Goal → Write → Check → Review → Fix**.
 
 ## Requirements
 
-- **macOS**, **Linux**, or **Windows**
+- macOS, Linux, or Windows
 - A local workspace directory
-- An API key for your LLM provider
+- An API key for a supported model provider
 
-{: .note }
-Wukong Code supports multiple providers — managed auth is optional. Bring your own keys.
-Use `wukong login` for the Free monthly Loop allowance.
+Wukong calls the provider API you configure. BYOK does not mean a local model.
+Device Login is optional and is used for the Free Loop allowance and account
+state.
 
----
+## Install
 
-## Install & Verify
-
-### `curl -fsSL https://wukong.today/install.sh | sh`
-
-Install on macOS or Linux:
+### macOS and Linux
 
 ```bash
 curl -fsSL https://wukong.today/install.sh | sh
-```
-
-For Windows, download the `.exe` from the [releases page](https://github.com/mutnpc/wukong-code/releases),
-or use the guided installer on [Download Wukong Code](https://wukong.today/download).
-
-Prefer a browser walkthrough? Start at [wukong.today](https://wukong.today) → [Download Wukong Code](https://wukong.today/download).
-
-### `wukong --version`
-
-Verify the installation:
-
-```bash
 wukong --version
 ```
 
----
+The installer downloads the matching native binary from the public release and
+verifies its SHA-256 file.
 
-## Core Workflow
+### Windows
 
-### `wukong provider`
+Download the matching Windows x64 or ARM64 ZIP from the
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.16),
+extract `wukong.exe`, and add it to your `PATH`.
 
-Configure an LLM provider:
+### Upgrade
 
 ```bash
-wukong provider
+wukong upgrade
 ```
 
-### `wukong`
+Native macOS and Linux installations upgrade in place after checking the
+release SHA-256. Windows native installations open the download path when an
+automatic replacement is unavailable.
 
-Launch the interactive TUI:
+## Configure a model
+
+Start the TUI and open the guided provider manager:
 
 ```bash
 wukong
 ```
 
-Inside the TUI, resume local context from another supported coding agent:
+```text
+/provider
+```
+
+For non-interactive provider commands:
+
+```bash
+wukong provider --help
+wukong provider list
+```
+
+## Run your first Loop
+
+Inside the TUI:
 
 ```text
+/loop add input validation to the signup form
+```
+
+Or run a headless Loop:
+
+```bash
+wukong loop "add input validation to the signup form"
+```
+
+The Loop:
+
+1. Works on the goal.
+2. Runs the checks available in the repository.
+3. Reviews the change from a fresh read-only context.
+4. Fixes blocking findings against the same goal.
+5. Returns `PASS`, `NEEDS_WORK`, or `ERROR`.
+
+v0.0.16 remembers earlier blockers. If the same blocker survives repeated
+reviews, Wukong tries one fresh read-only strategy and then stops with
+`NEEDS_WORK/no_progress` if the work is still not moving forward.
+
+Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, auth or quota rejection
+`=3`, and interruption `=130`.
+
+## Resume unfinished work
+
+Use `/resume` for Wukong sessions. Name another source only when you want Wukong
+to scan that agent's local sessions:
+
+```text
+/resume
 /resume codex
 /resume claude
 /resume cursor
 ```
 
-The source session is read-only. You choose whether to continue normally or
-start an editable Loop objective.
+External history is imported as read-only context. Wukong does not restart the
+other agent, inherit its permissions, replay its old tools, or modify the source
+session. You choose whether to continue directly or start an editable Loop goal.
 
-### `wukong -p <prompt>`
+## Use a focused role
 
-Run a one-off prompt:
+Role profiles are experimental. Enable them in `~/.wukong/config.toml`:
 
-```bash
-wukong -p "summarize this repository"
+```toml
+[experimental]
+role_profiles = true
 ```
 
-### `wukong loop <objective>`
-
-Run the primary write → check → review → fix workflow:
+Then list or select a role:
 
 ```bash
-wukong loop "finish the current change"
+wukong roles list
+wukong --role security
 ```
 
-Every Loop ends with `PASS`, `NEEDS_WORK`, or `ERROR`. Guest gets one local
-trial with up to two iterations. Run `wukong login` for 10 Free Loop sessions
-per month with up to five iterations each.
+Inside the TUI:
 
-### `wukong today`
+```text
+/transform security
+/transform off
+```
 
-Show the Daily Proof Briefing (local stats, focus, and next actions):
+Roles can select instructions, models, and a narrower tool set. They cannot
+expand Wukong's hard safety boundaries.
+
+## Use subagents
+
+Wukong can delegate bounded work without changing the main Loop contract:
+
+```text
+/swarm investigate the failing tests and propose independent fixes
+/btw explain whether this migration is backward compatible
+/tasks
+```
+
+- `/swarm <task>` enables swarm mode and starts a task that may delegate work.
+- `/btw <question>` opens a forked side agent for a focused question.
+- `/tasks` shows background agents and their current state.
+
+Read-only reviewers and strategists remain read-only even when the parent agent
+uses Auto or YOLO.
+
+## Choose a permission mode
+
+- **Manual** asks before operations covered by approval rules.
+- **Auto** does not ask follow-up approval questions, but blocks workspace
+  escapes, sensitive targets, high-risk commands, and unclassified external
+  tools.
+- **YOLO** skips ordinary approvals, but cannot bypass explicit deny rules,
+  safety hooks, plan guards, role limits, or read-only agent limits.
+
+Headless prompt mode defaults to guarded Auto. Dangerous headless execution
+requires both flags:
 
 ```bash
-wukong today
-wukong today "ship auth fix"
-wukong today --clear-focus
+wukong -p "finish the current change" --yolo --yes
 ```
 
----
+`--yes` by itself does not enable YOLO.
 
-## Advanced Local Diagnostics
+## Free allowance
 
-`verify`, `scan`, and `proof` are available for diagnosis, but the primary
-product workflow is `wukong loop`; these checks are internal Loop layers rather
-than separate products or quotas.
-
-### `wukong verify`
-
-Run checks and write an evidence report:
+Guests receive one local trial with up to two Loop iterations. Signed-in Free
+users receive 10 Loop sessions per month with up to five iterations each.
+Internal checks do not consume additional quota.
 
 ```bash
-wukong verify
+wukong login
 ```
 
-### `wukong scan`
+## Advanced diagnostics
 
-Scan git changes for delivery risks:
+`verify`, `scan`, `proof`, and `judge` remain directly executable for diagnosis
+and CI. Loop already runs these layers, so they are not separate products or
+separate quotas. See the [Command Reference](/commands/#advanced-diagnostics).
 
-```bash
-wukong scan
-```
+## Next steps
 
-### `wukong proof`
-
-Build a merge-ready evidence report from verify + scan:
-
-```bash
-wukong proof
-```
-
-### `wukong guard`
-
-Inspect risky commands before execution:
-
-```bash
-wukong guard --status
-```
-
----
-
-## Next Steps
-
-- Browse the [command reference](/commands)
-- Learn about [configuration options](/configuration)
+- Browse the [Command Reference](/commands/)
+- Configure [permissions, roles, Resume, and updates](/configuration/)
+- Read [Updates and announcements](/updates-and-announcements/)
