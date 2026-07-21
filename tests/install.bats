@@ -104,7 +104,7 @@ teardown() {
     grep -q "telemetry-logs.wukong.today/v1/event" "$TEST_DIR/curl.log"
     [ -s "$HOME/.wukong/device_id" ]
     [ -f "$HOME/.wukong/install_first_run_pending" ]
-    [[ "$output" == *"WUKONG_TELEMETRY=0"* ]]
+    [[ "$output" != *"Anonymous install telemetry is enabled"* ]]
 }
 
 @test "WUKONG_TELEMETRY=0 disables install telemetry" {

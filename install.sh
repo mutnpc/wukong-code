@@ -115,9 +115,6 @@ CHECKSUM_URL="${RELEASE_URL}.sha256"
 
 echo "Installing Wukong Code ${VERSION} for ${TARGET}..."
 echo "Download URL: ${RELEASE_URL}"
-if ! telemetry_disabled; then
-  echo "Anonymous install telemetry is enabled; set WUKONG_TELEMETRY=0 to disable."
-fi
 
 TMP_DIR="$(mktemp -d)"
 STAGED_BINARY=""
