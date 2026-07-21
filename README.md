@@ -1,24 +1,31 @@
 # Wukong Code
 
-> **Resume the task. Loop until the Gate passes.**
+> **Give Wukong a goal. It loops until the change is ready.**
 
-Wukong Code is a terminal-native AI coding agent built around one workflow:
-**Resume → Loop → Gate**. Continue unfinished work, run the repository's real
-checks, review the result from a fresh context, and iterate until the outcome is
-actionable.
+Wukong Code is a terminal AI coding agent built around one workflow:
+**Goal → Write → Check → Review → Fix**.
 
-- **Terminal-native**: launch an interactive TUI or run one-off prompts without
-  leaving your shell.
-- **Loop until verified**: `wukong loop` writes, runs real project checks, scans
-  risks, asks a fresh-context read-only reviewer, and fixes what remains.
-- **Cross-Agent Resume**: continue local Codex, Claude Code, or Cursor sessions
-  from the Wukong TUI without modifying the source session.
-- **Actionable result**: every Loop ends as `PASS`, `NEEDS_WORK`, or `ERROR`,
-  with structured blockers and stable process exit codes.
-- **Bring your own provider key**: Wukong uses the model API you configure;
-  login is used only for the Free Loop allowance and account state.
+Give `/loop` a goal. Wukong works on the change, runs the repository's real
+checks, reviews the result from a fresh read-only context, and fixes blocking
+findings against the same goal.
 
----
+The current release is **[v0.0.16](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.16)**.
+It is free and bring-your-own-key (BYOK).
+
+## Why Wukong
+
+- **A Loop that converges**: Wukong keeps the goal and finish condition fixed,
+  remembers earlier blockers, and stops with a clear reason when another
+  iteration would only repeat the same work.
+- **Resume unfinished work**: continue local Codex, Claude Code, or Cursor
+  sessions without modifying the source session or replaying its old tools.
+- **Clear outcomes**: every Loop ends as `PASS`, `NEEDS_WORK`, or `ERROR`, with
+  the current blocker and next action.
+- **Guarded autonomy**: Auto can work without follow-up approval while staying
+  inside workspace and safety boundaries. YOLO remains an explicit bypass and
+  cannot expand the permissions of read-only reviewers or strategists.
+- **Your model provider**: Wukong uses the model API key and model you configure.
+  It does not require a local model.
 
 ## Install
 
@@ -28,112 +35,136 @@ actionable.
 curl -fsSL https://wukong.today/install.sh | sh
 ```
 
-Or download the latest binary for your platform from the
-[releases page](https://github.com/mutnpc/wukong-code/releases).
-
 ### Windows
 
-Download the latest `.exe` from the
-[releases page](https://github.com/mutnpc/wukong-code/releases) and place it on
-your `PATH`.
+Download the matching Windows ZIP from the
+[releases page](https://github.com/mutnpc/wukong-code/releases), extract
+`wukong.exe`, and add it to your `PATH`.
 
-### Verify
+Verify the installation:
 
 ```bash
 wukong --version
 ```
 
----
+Upgrade an existing native installation:
+
+```bash
+wukong upgrade
+```
 
 ## Quick start
 
-```bash
-# Start the interactive TUI
-wukong
+Configure a model provider and start the TUI:
 
-# In the TUI, continue a local session from another coding agent
+```bash
+wukong provider
+wukong
+```
+
+Start a Loop inside the TUI:
+
+```text
+/loop add input validation to the signup form
+```
+
+Or run the Loop directly:
+
+```bash
+wukong loop "add input validation to the signup form"
+```
+
+Resume unfinished work from another coding agent:
+
+```text
 /resume codex
 /resume claude
 /resume cursor
-
-# Run a one-off prompt
-wukong -p "explain this repository"
-
-# Iterate until the independent delivery gate passes
-wukong loop "finish the current change"
-
-# Verify current changes before committing
-wukong verify
-
-# Scan for delivery risks
-wukong scan
-
-# Check guard status
-wukong guard --status
 ```
 
----
+Wukong imports the selected session as read-only context. You choose whether to
+continue directly or turn it into an editable Loop goal.
 
-## Current commands
+## The 0.0.16 Loop
+
+Each Loop keeps one user-owned target:
+
+1. Write the change.
+2. Run the repository's available checks.
+3. Review from a fresh read-only context.
+4. Fix blocking findings against the same goal.
+5. Pass, stop with a clear blocker, or report an execution error.
+
+If the same blocker survives repeated reviews, Wukong tries one fresh read-only
+strategy. If that still makes no progress, it returns
+`NEEDS_WORK/no_progress` instead of spending the remaining iterations blindly.
+
+Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, auth or quota rejection
+`=3`, and interruption `=130`.
+
+## Roles (experimental)
+
+Wukong includes role profiles for focused tasks and supports user-defined roles.
+Enable `experimental.role_profiles` in `~/.wukong/config.toml`, then use:
+
+```bash
+wukong roles list
+wukong --role security
+```
+
+Inside the TUI, use `/transform security` to switch roles and `/transform off`
+to return to the default role. A role may narrow tools and behavior, but it
+cannot expand Wukong's hard safety boundaries.
+
+## Primary commands
 
 | Command | Description |
 |---|---|
 | `wukong` | Launch the interactive TUI |
-| `wukong -p <prompt>` | Run a single prompt and print the result |
-| `wukong provider` | Manage LLM providers |
-| `wukong login` | Authenticate via device-code flow |
-| `wukong verify` | Advanced local deterministic checks used by Loop |
-| `wukong scan` | Advanced local risk scan used by Loop |
-| `wukong guard` | Inspect or run the command risk guard |
-| `wukong proof` | Advanced local verify + scan summary used by Loop |
-| `wukong judge` | Evaluator-only merge decision |
-| `wukong loop <objective>` | Run the Loop-first delivery workflow; supports `--max-iterations`, `--every`, `--model`, and `--role` |
-| `wukong today` | Show the Daily Proof Briefing and manage today's focus |
-| `wukong server` | Start the local REST/WebSocket server |
-| `wukong web` | Open the local web UI |
-| `wukong doctor` | Validate configuration files |
-| `wukong export [sessionId]` | Export a session ZIP |
-| `wukong vis [sessionId]` | Open the session visualizer |
-| `wukong migrate` | Migrate legacy Wukong data |
-| `wukong upgrade` / `wukong update` | Upgrade to the latest version |
+| `wukong -p <prompt>` | Run one non-interactive prompt |
+| `wukong provider` | Configure model providers and models |
+| `wukong loop <goal>` | Run the write → check → review → fix workflow |
+| `wukong login` | Sign in through Device Login for the Free allowance |
+| `wukong roles list` | List built-in and user-defined role profiles |
+| `wukong review init` | Create `.wukong/review-policy.md` |
+| `wukong guard` | Inspect the command risk guard |
+| `wukong doctor` | Validate local configuration |
+| `wukong upgrade` | Upgrade a native installation |
 
-Inside the TUI, `/resume`, `/resume codex`, `/resume claude`, `/resume cursor`,
-and `/loop` are the primary workflow. Advanced local diagnostics remain
-available through `/verify`, `/scan`, `/proof`, `/judge`, and `/guard`.
+Inside the TUI, `/loop` and `/resume` are the primary workflow. `verify`,
+`scan`, `proof`, and `judge` remain available as advanced diagnostics and Loop
+layers; they are not separate products or separate quotas.
 
-The current Loop allowance provides one two-iteration Guest trial. Signed-in
-Free users get 10 Loop sessions per month with up to five iterations each.
-Internal verify, scan, and proof checks do not consume extra quota. Loop exits with `0` for
-`PASS`, `1` for `NEEDS_WORK`, `2` for `ERROR`, `3` for auth/quota rejection,
-and `130` when interrupted.
+Run `wukong --help` for the complete command and option list.
 
-The installer and CLI send anonymous product events such as install success,
-first run, and Loop lifecycle state. They never include source code, prompts,
-transcripts, repository names, or file paths. Set `WUKONG_TELEMETRY=0` to opt
-out; local Loop behavior is unchanged.
+## Free allowance and privacy
 
-Run `wukong --help` for the full option list.
+Guests receive one local trial with up to two Loop iterations. Signed-in Free
+users receive 10 Loop sessions per month with up to five iterations each.
+Internal checks do not consume additional quota.
 
----
+There is no public paid plan, Checkout, hosted report workflow, or managed model
+credit in v0.0.16.
+
+Anonymous product events are limited to installation, first run, Device Login,
+and Loop lifecycle state. They never include source code, prompts, transcripts,
+repository names, or file paths. Set `WUKONG_TELEMETRY=0` to opt out.
 
 ## Documentation
 
-Full docs: [docs.wukong.today](https://docs.wukong.today)
+Full documentation: [docs.wukong.today](https://docs.wukong.today)
 
 - [Getting started](./docs/getting-started.md)
 - [Command reference](./docs/commands.md)
 - [Configuration](./docs/configuration.md)
 - [Updates and announcements](./docs/updates-and-announcements.md)
-
----
+- [Changelog](./CHANGELOG.md)
 
 ## Support
 
 - Website: [wukong.today](https://wukong.today)
 - Issues: [github.com/mutnpc/wukong-code/issues](https://github.com/mutnpc/wukong-code/issues)
 - Email: [support@wukong.today](mailto:support@wukong.today)
-
----
 
 ## License
 
