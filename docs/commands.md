@@ -7,7 +7,7 @@ permalink: /commands/
 
 # Command Reference
 
-This reference describes the public v0.0.17 binary.
+This reference describes the public v0.0.18 binary.
 
 {: .highlight }
 Run `wukong --help` or `wukong <command> --help` against your installed version
@@ -82,7 +82,7 @@ wukong loop "validate arguments" --dry-run
 | `--dry-run` | Validate the plan without starting a Loop |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-v0.0.17 freezes the goal and optional finish condition when the Loop starts.
+v0.0.18 freezes the goal and optional finish condition when the Loop starts.
 Every review must account for earlier blockers. Repeated identical blockers
 trigger one fresh read-only strategy; if that still makes no progress, the Loop
 returns `NEEDS_WORK/no_progress`.
@@ -97,7 +97,7 @@ Loop results and exit codes:
 | Interrupted | `130` | The user or process interrupted the run |
 
 Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal inputs remain readable
-in v0.0.17 and map to the unified `proof-pass` gate.
+in v0.0.18 and map to the unified `proof-pass` gate.
 
 ### TUI `/loop`
 
@@ -115,6 +115,8 @@ in v0.0.17 and map to the unified `proof-pass` gate.
 /resume codex
 /resume claude
 /resume cursor
+/resume kimi
+/resume grok
 ```
 
 Bare `/resume` lists Wukong sessions. An explicit source scans that agent's
@@ -122,7 +124,8 @@ local sessions. External history is imported as read-only context; old tool
 calls are never replayed.
 
 The compatibility aliases `/resume-codex`, `/resume-claude`, and
-`/resume-cursor` still work but are hidden from the primary command list.
+`/resume-cursor` still work but are hidden from the primary command list. Kimi
+Code and Grok use the canonical source arguments and do not add more aliases.
 
 ## Providers and account
 
@@ -148,8 +151,16 @@ local BYOK Loop.
 wukong login
 ```
 
-The browser flow uses `https://wukong.today/auth/device`. Login does not replace
-the model provider API key used for inference.
+The browser flow uses `https://wukong.today/auth/device`, where the user confirms
+with Google or GitHub. Login does not replace the model provider API key used for
+inference. The authenticated Wukong model catalog currently returns no hosted
+models, and an empty catalog is a successful account connection.
+
+### TUI `/feedback`
+
+`/feedback` works without login. Before submission it shows the exact text JSON
+fields and requires confirmation. It never attaches logs, prompts, transcripts,
+source code, file paths, or local evidence.
 
 ## Review policy and feedback
 

@@ -7,7 +7,7 @@ permalink: /getting-started/
 
 # Getting Started
 
-Wukong Code v0.0.17 is a terminal AI coding agent centered on one workflow:
+Wukong Code v0.0.18 is a terminal AI coding agent centered on one workflow:
 **Goal → Write → Check → Review → Fix**.
 
 ## Requirements
@@ -35,7 +35,7 @@ verifies its SHA-256 file.
 ### Windows
 
 Download the matching Windows x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17),
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.18),
 extract `wukong.exe`, and add it to your `PATH`.
 
 ### Upgrade
@@ -89,7 +89,7 @@ The Loop:
 4. Fixes blocking findings against the same goal.
 5. Returns `PASS`, `NEEDS_WORK`, or `ERROR`.
 
-v0.0.17 remembers earlier blockers. If the same blocker survives repeated
+v0.0.18 remembers earlier blockers. If the same blocker survives repeated
 reviews, Wukong tries one fresh read-only strategy and then stops with
 `NEEDS_WORK/no_progress` if the work is still not moving forward.
 
@@ -105,6 +105,8 @@ to scan that agent's local sessions:
 /resume codex
 /resume claude
 /resume cursor
+/resume kimi
+/resume grok
 ```
 
 External history is imported as read-only context. Wukong does not restart the

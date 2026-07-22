@@ -9,7 +9,7 @@ Give `/loop` a goal. Wukong works on the change, runs the repository's real
 checks, reviews the result from a fresh read-only context, and fixes blocking
 findings against the same goal.
 
-The current release is **[v0.0.17](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17)**.
+The current release is **[v0.0.18](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.18)**.
 It is free and bring-your-own-key (BYOK).
 
 ## Why Wukong
@@ -17,7 +17,7 @@ It is free and bring-your-own-key (BYOK).
 - **A Loop that converges**: Wukong keeps the goal and finish condition fixed,
   remembers earlier blockers, and stops with a clear reason when another
   iteration would only repeat the same work.
-- **Resume unfinished work**: continue local Codex, Claude Code, or Cursor
+- **Resume unfinished work**: continue local Codex, Claude Code, Cursor, Kimi Code, or Grok
   sessions without modifying the source session or replaying its old tools.
 - **Clear outcomes**: every Loop ends as `PASS`, `NEEDS_WORK`, or `ERROR`, with
   the current blocker and next action.
@@ -80,18 +80,20 @@ Resume unfinished work from another coding agent:
 /resume codex
 /resume claude
 /resume cursor
+/resume kimi
+/resume grok
 ```
 
 Wukong imports the selected session as read-only context. You choose whether to
 continue directly or turn it into an editable Loop goal.
 
-## The 0.0.17 command surface
+## The 0.0.18 Loop-first surface
 
-Removed or invalid slash commands stay local instead of becoming model prompts.
-Use `/transform` for the current experimental Role Profile, `/resume` for
-sessions, `/provider` for model API keys, `/export` for ZIP, and `/export-md`
-for Markdown. Local BYOK Loops no longer depend on a Guest trial, sign-in, or a
-monthly Wukong quota.
+The default TUI command list keeps Resume → Loop → Gate clear. Run
+`/help advanced` for diagnostics and configuration tools. Advanced and
+compatibility implementations remain callable; they are hidden rather than
+deleted. Removed or invalid slash commands stay local instead of becoming model
+prompts.
 
 ## The Loop
 
@@ -139,7 +141,9 @@ boundaries.
 | `wukong doctor` | Validate local configuration |
 | `wukong upgrade` | Upgrade a native installation |
 
-Inside the TUI, `/loop` and `/resume` are the primary workflow. `verify`,
+Inside the TUI, `/loop` and `/resume` are the primary workflow. `/login` opens
+the Wukong website for Google or GitHub confirmation; the current Wukong model
+catalog can be empty and never replaces a BYOK default. `verify`,
 `scan`, `proof`, and `judge` remain available as advanced diagnostics and Loop
 layers; they are not separate products or separate quotas.
 
@@ -154,7 +158,11 @@ safety controls. Anonymous metrics respect `WUKONG_TELEMETRY=0` and never gate
 execution.
 
 There is no public paid plan, Checkout, hosted report workflow, or managed model
-credit in v0.0.17.
+credit in v0.0.18.
+
+`/feedback` is login-free and sends only the exact text fields shown for
+confirmation. It never attaches logs, prompts, transcripts, source code, file
+paths, or local evidence.
 
 Anonymous product events are limited to installation, first run, Device Login,
 and Loop lifecycle state. They never include source code, prompts, transcripts,

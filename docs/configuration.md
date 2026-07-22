@@ -147,7 +147,7 @@ WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
 
 Device Login and account APIs use `wukong.today` by default. There is no
 separate `auth.wukong.today` host and no hosted report upload workflow in
-v0.0.17.
+v0.0.18.
 
 ## Anonymous product events
 

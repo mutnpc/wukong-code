@@ -10,6 +10,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.18] - 2026-07-22
+
+### Added
+- Add bounded, read-only Kimi Code and Grok session discovery to canonical `/resume`.
+- Add login-free, explicitly confirmed text-only `/feedback` backed by the Wukong website.
+- Restore the authenticated Wukong model catalog contract, returning an honest empty list until hosted models exist.
+
+### Changed
+- Keep the default TUI surface focused on Resume → Loop → Gate and expose diagnostics through `/help advanced`.
+- Confirm Device Login on the Wukong website with Google or GitHub without collecting credentials in the terminal.
+- Preserve BYOK providers and the active BYOK default when the Wukong catalog is empty.
+
+### Security
+- Remove feedback archive, log, transcript, prompt, source-code, and local-evidence attachment paths.
+- Reject Kimi Code and Grok metadata paths that escape their known local session roots.
+
+Wukong Code 0.0.18 remains free and BYOK. It adds no hosted inference,
+payments, monthly Loop quota, Hosted Terminal, cloud sync, or Web/D1 product
+telemetry backend.
+
 ## [0.0.17] - 2026-07-22
 
 ### Changed

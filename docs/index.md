@@ -11,9 +11,9 @@ permalink: /
 Wukong Code is a terminal AI coding agent built around one workflow:
 **Goal → Write → Check → Review → Fix**.
 
-[Install v0.0.17](#install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Install v0.0.18](#install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [Download Wukong Code](https://wukong.today/download){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View the release](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17){: .btn .fs-5 .mb-4 .mb-md-0 }
+[View the release](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.18){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
@@ -24,12 +24,12 @@ Wukong Code is a terminal AI coding agent built around one workflow:
 > checks, reviews from a fresh read-only context, and fixes blocking findings.
 
 {: .note }
-> **Stop instead of drift** — v0.0.17 keeps the goal fixed, remembers earlier
+> **Stop instead of drift** — v0.0.18 keeps the goal fixed, remembers earlier
 > blockers, and stops with a clear reason when another iteration would repeat
 > the same work.
 
 {: .note }
-> **Resume unfinished work** — continue local Codex, Claude Code, or Cursor
+> **Resume unfinished work** — continue local Codex, Claude Code, Cursor, Kimi Code, or Grok
 > sessions without modifying the source session or replaying old tools.
 
 {: .note }
@@ -51,7 +51,7 @@ wukong --version
 ```
 
 Windows users can download the matching x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17).
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.18).
 
 ## Start a Loop
 
@@ -69,6 +69,7 @@ Inside the TUI:
 /provider
 /loop add input validation to the signup form
 /resume codex
+/resume kimi
 ```
 
 Every Loop finishes as `PASS`, `NEEDS_WORK`, or `ERROR`. Start with the
@@ -77,7 +78,7 @@ Every Loop finishes as `PASS`, `NEEDS_WORK`, or `ERROR`. Start with the
 
 ## Current product boundary
 
-The v0.0.17 release keeps local Loops free and bring-your-own-key, without
+The v0.0.18 release keeps local Loops free and bring-your-own-key, without
 a Guest trial, sign-in requirement, or monthly account limit. The default
 per-run safety limit is 10 iterations and can be changed explicitly. There is
-no public paid plan, Checkout, hosted report workflow, or managed model credit.
+no public paid plan, Checkout, hosted report workflow, hosted inference, or managed model credit.

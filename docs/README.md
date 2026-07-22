@@ -1,6 +1,6 @@
 # Wukong Code Documentation
 
-These docs describe the current public release, **v0.0.17**.
+These docs describe the current public release, **v0.0.18**.
 
 Wukong Code has one primary workflow: give `/loop` a goal and let Wukong write,
 check, review, and fix until the change passes or stops with a clear reason.
@@ -23,4 +23,4 @@ check, review, and fix until the change passes or stops with a clear reason.
 - [Report a bug](https://github.com/mutnpc/wukong-code/issues)
 
 The current release is free and BYOK. There is no public paid plan, hosted
-report workflow, or managed model credit in v0.0.17.
+report workflow, hosted inference, or managed model credit in v0.0.18.
