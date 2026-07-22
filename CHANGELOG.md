@@ -10,6 +10,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.17] - 2026-07-22
+
+### Changed
+- Make `/transform list|status|off` the only TUI Role Profile switch and keep it discoverable with local experimental-feature guidance.
+- Align `/export` with the ZIP-exporting CLI command and use explicit `/export-md` for Markdown.
+- Reject invalid permission, Loop, Today, roles, and slash-command arguments without changing state or sending them to the model.
+
+### Removed
+- Remove the misleading global and Loop `--role` flags and the TUI `/role`, `/report`, and `/yes` aliases.
+
+### Fixed
+- Keep unknown, disabled, and unavailable slash commands local, with suggestions, instead of treating them as model prompts.
+- Keep headless Loop alive across continuation turns, enforce iteration limits, and make `--every` a cancellable Goal-owned delay without orphan cron work.
+- Remove Guest trials, monthly Loop allowances, remote start/complete accounting, and quota-service warnings; keep BYOK execution local with per-run safety controls and crash recovery.
+- Reconcile duplicate reviewer blockers safely, reject invalid replacement references, cancel deterministic checks promptly, and detect non-Git workspace changes by content.
+- Add regression coverage across command registration, resolution, dispatch, and real CLI boundaries.
+
+### Security
+- Bound the fresh read-only reviewer to eight steps or two minutes, keep its tool contract read-only, and propagate cancellation instead of leaving a Loop stuck in CHECK.
+
+Wukong Code 0.0.17 remains free and BYOK. It adds no paid plan, Checkout,
+entitlement, hosted execution, managed model credits, or Web/D1 product-metrics
+backend.
+
 ## [0.0.16] - 2026-07-21
 
 ### Added

@@ -7,7 +7,7 @@ permalink: /getting-started/
 
 # Getting Started
 
-Wukong Code v0.0.16 is a terminal AI coding agent centered on one workflow:
+Wukong Code v0.0.17 is a terminal AI coding agent centered on one workflow:
 **Goal → Write → Check → Review → Fix**.
 
 ## Requirements
@@ -17,8 +17,8 @@ Wukong Code v0.0.16 is a terminal AI coding agent centered on one workflow:
 - An API key for a supported model provider
 
 Wukong calls the provider API you configure. BYOK does not mean a local model.
-Device Login is optional and is used for the Free Loop allowance and account
-state.
+Device Login is optional and is used for account features. It does not provide
+a model API key and does not decide whether a local BYOK Loop may run.
 
 ## Install
 
@@ -35,7 +35,7 @@ verifies its SHA-256 file.
 ### Windows
 
 Download the matching Windows x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.16),
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17),
 extract `wukong.exe`, and add it to your `PATH`.
 
 ### Upgrade
@@ -89,12 +89,11 @@ The Loop:
 4. Fixes blocking findings against the same goal.
 5. Returns `PASS`, `NEEDS_WORK`, or `ERROR`.
 
-v0.0.16 remembers earlier blockers. If the same blocker survives repeated
+v0.0.17 remembers earlier blockers. If the same blocker survives repeated
 reviews, Wukong tries one fresh read-only strategy and then stops with
 `NEEDS_WORK/no_progress` if the work is still not moving forward.
 
-Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, auth or quota rejection
-`=3`, and interruption `=130`.
+Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, and interruption `=130`.
 
 ## Resume unfinished work
 
@@ -121,17 +120,19 @@ Role profiles are experimental. Enable them in `~/.wukong/config.toml`:
 role_profiles = true
 ```
 
-Then list or select a role:
+Then inspect the available roles:
 
 ```bash
 wukong roles list
-wukong --role security
+wukong roles show security
 ```
 
 Inside the TUI:
 
 ```text
+/transform list
 /transform security
+/transform status
 /transform off
 ```
 
@@ -173,11 +174,12 @@ wukong -p "finish the current change" --yolo --yes
 
 `--yes` by itself does not enable YOLO.
 
-## Free allowance
+## Local BYOK execution
 
-Guests receive one local trial with up to two Loop iterations. Signed-in Free
-users receive 10 Loop sessions per month with up to five iterations each.
-Internal checks do not consume additional quota.
+Every user can run local BYOK Loops without signing in, a Guest trial, or a
+monthly allowance. A Loop defaults to 10 iterations; use `--max-iterations` to
+set the per-run safety limit. Reviewer step/time limits and `/loop stop` remain
+available to prevent runaway API-key use.
 
 ```bash
 wukong login
@@ -186,8 +188,8 @@ wukong login
 ## Advanced diagnostics
 
 `verify`, `scan`, `proof`, and `judge` remain directly executable for diagnosis
-and CI. Loop already runs these layers, so they are not separate products or
-separate quotas. See the [Command Reference](/commands/#advanced-diagnostics).
+and CI. Loop already runs these layers, so they are not separate products. See
+the [Command Reference](/commands/#advanced-diagnostics).
 
 ## Next steps
 

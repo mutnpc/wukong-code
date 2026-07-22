@@ -9,7 +9,7 @@ Give `/loop` a goal. Wukong works on the change, runs the repository's real
 checks, reviews the result from a fresh read-only context, and fixes blocking
 findings against the same goal.
 
-The current release is **[v0.0.16](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.16)**.
+The current release is **[v0.0.17](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17)**.
 It is free and bring-your-own-key (BYOK).
 
 ## Why Wukong
@@ -85,7 +85,15 @@ Resume unfinished work from another coding agent:
 Wukong imports the selected session as read-only context. You choose whether to
 continue directly or turn it into an editable Loop goal.
 
-## The 0.0.16 Loop
+## The 0.0.17 command surface
+
+Removed or invalid slash commands stay local instead of becoming model prompts.
+Use `/transform` for the current experimental Role Profile, `/resume` for
+sessions, `/provider` for model API keys, `/export` for ZIP, and `/export-md`
+for Markdown. Local BYOK Loops no longer depend on a Guest trial, sign-in, or a
+monthly Wukong quota.
+
+## The Loop
 
 Each Loop keeps one user-owned target:
 
@@ -99,8 +107,7 @@ If the same blocker survives repeated reviews, Wukong tries one fresh read-only
 strategy. If that still makes no progress, it returns
 `NEEDS_WORK/no_progress` instead of spending the remaining iterations blindly.
 
-Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, auth or quota rejection
-`=3`, and interruption `=130`.
+Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, and interruption `=130`.
 
 ## Roles (experimental)
 
@@ -109,12 +116,13 @@ Enable `experimental.role_profiles` in `~/.wukong/config.toml`, then use:
 
 ```bash
 wukong roles list
-wukong --role security
+wukong roles show security
 ```
 
-Inside the TUI, use `/transform security` to switch roles and `/transform off`
-to return to the default role. A role may narrow tools and behavior, but it
-cannot expand Wukong's hard safety boundaries.
+Inside the TUI, use `/transform list`, `/transform security`, `/transform status`,
+and `/transform off` to inspect, switch, check, and reset the active role. A role
+may narrow tools and behavior, but it cannot expand Wukong's hard safety
+boundaries.
 
 ## Primary commands
 
@@ -124,7 +132,7 @@ cannot expand Wukong's hard safety boundaries.
 | `wukong -p <prompt>` | Run one non-interactive prompt |
 | `wukong provider` | Configure model providers and models |
 | `wukong loop <goal>` | Run the write → check → review → fix workflow |
-| `wukong login` | Sign in through Device Login for the Free allowance |
+| `wukong login` | Sign in through Device Login for account features |
 | `wukong roles list` | List built-in and user-defined role profiles |
 | `wukong review init` | Create `.wukong/review-policy.md` |
 | `wukong guard` | Inspect the command risk guard |
@@ -137,14 +145,16 @@ layers; they are not separate products or separate quotas.
 
 Run `wukong --help` for the complete command and option list.
 
-## Free allowance and privacy
+## Local BYOK and privacy
 
-Guests receive one local trial with up to two Loop iterations. Signed-in Free
-users receive 10 Loop sessions per month with up to five iterations each.
-Internal checks do not consume additional quota.
+Every user can run local BYOK Loops without signing in, a Guest trial, or a
+monthly allowance. The default per-run limit is 10 iterations and can be
+changed with `--max-iterations`; reviewer limits and `/loop stop` remain local
+safety controls. Anonymous metrics respect `WUKONG_TELEMETRY=0` and never gate
+execution.
 
 There is no public paid plan, Checkout, hosted report workflow, or managed model
-credit in v0.0.16.
+credit in v0.0.17.
 
 Anonymous product events are limited to installation, first run, Device Login,
 and Loop lifecycle state. They never include source code, prompts, transcripts,

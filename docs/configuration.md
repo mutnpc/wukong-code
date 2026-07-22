@@ -44,7 +44,7 @@ wukong provider list
 ```
 
 Wukong uses the provider API key and model you select. Device Login is separate
-and is used only for the Free Loop allowance and account state.
+and is used only for account features. It does not gate local BYOK Loops.
 
 ## Permission mode
 
@@ -132,7 +132,6 @@ the release SHA-256 and replace the binary atomically.
 | `WUKONG_CODE_HOME` | Override the user data directory (`~/.wukong`) |
 | `WUKONG_CODE_OAUTH_HOST` | Override the Device Login host (default `https://wukong.today`) |
 | `WUKONG_CODE_BASE_URL` | Override the Wukong account API base (default `https://wukong.today/api/v1`) |
-| `WUKONG_API_URL` | Override the Loop allowance API origin (default `https://wukong.today`) |
 | `WUKONG_CODE_CUSTOM_HEADERS` | Newline-separated custom headers for outbound model requests |
 | `WUKONG_CODE_EXPERIMENTAL_ROLE_PROFILES` | Set to `1` to enable experimental role profiles |
 | `WUKONG_CODE_NO_AUTO_UPDATE` | Disable startup version checks, prompts, and background installation |
@@ -148,7 +147,7 @@ WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
 
 Device Login and account APIs use `wukong.today` by default. There is no
 separate `auth.wukong.today` host and no hosted report upload workflow in
-v0.0.16.
+v0.0.17.
 
 ## Anonymous product events
 
@@ -163,8 +162,9 @@ Disable anonymous product events with:
 export WUKONG_TELEMETRY=0
 ```
 
-Opting out does not change local Loop behavior. Signed-in allowance accounting
-is part of the account contract and remains separate from anonymous events.
+Opting out does not change local Loop behavior. Local lifecycle records remain
+on the machine for crash recovery; account state is separate from anonymous
+events and never gates a BYOK Loop.
 
 ## Configuration priority
 

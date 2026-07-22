@@ -7,7 +7,7 @@ permalink: /commands/
 
 # Command Reference
 
-This reference describes the public v0.0.16 binary.
+This reference describes the public v0.0.17 binary.
 
 {: .highlight }
 Run `wukong --help` or `wukong <command> --help` against your installed version
@@ -23,7 +23,6 @@ when exact options matter.
 | `-c, --continue` | Continue the previous session for the current workspace |
 | `-p, --prompt <prompt>` | Run one prompt non-interactively |
 | `-m, --model <model>` | Select a configured model alias |
-| `--role <role>` | Select an experimental role profile |
 | `--auto` | Run autonomously with workspace and high-risk guardrails |
 | `-y, --yolo` | Skip ordinary approvals; hard limits still apply |
 | `--output-format <format>` | Select `text` or `stream-json` prompt output |
@@ -68,8 +67,8 @@ Run the write → check → review → fix workflow without opening the TUI.
 
 ```bash
 wukong loop "fix the failing tests"
-wukong loop "finish the API" --max-iterations 5 --every 30s
-wukong loop "review auth" --model fast --role security
+wukong loop "finish the API" --max-iterations 5 --every 1m
+wukong loop "review auth" --model fast --review-model strict
 wukong loop "finish validation" --review-model reviewer
 wukong loop "validate arguments" --dry-run
 ```
@@ -77,14 +76,13 @@ wukong loop "validate arguments" --dry-run
 | Option | Description |
 |---|---|
 | `--max-iterations <n>` | Maximum Loop iterations |
-| `--every <duration>` | Minimum delay between iterations, such as `30s` or `5m` |
+| `--every <duration>` | Minimum delay between iterations, such as `1m` or `5m` |
 | `--model <alias>` | Writer model alias |
 | `--review-model <alias>` | Independent reviewer model alias |
-| `--role <role>` | Writer role profile |
 | `--dry-run` | Validate the plan without starting a Loop |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-v0.0.16 freezes the goal and optional finish condition when the Loop starts.
+v0.0.17 freezes the goal and optional finish condition when the Loop starts.
 Every review must account for earlier blockers. Repeated identical blockers
 trigger one fresh read-only strategy; if that still makes no progress, the Loop
 returns `NEEDS_WORK/no_progress`.
@@ -96,11 +94,10 @@ Loop results and exit codes:
 | `PASS` | `0` | The fixed target passed checks and review |
 | `NEEDS_WORK` | `1` | A blocker, permission requirement, limit, or no-progress stop remains |
 | `ERROR` | `2` | The Loop could not produce a trustworthy result |
-| Auth/quota rejected | `3` | Login or allowance explicitly rejected the run |
 | Interrupted | `130` | The user or process interrupted the run |
 
 Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal inputs remain readable
-in v0.0.16 and map to the unified `proof-pass` gate.
+in v0.0.17 and map to the unified `proof-pass` gate.
 
 ### TUI `/loop`
 
@@ -144,7 +141,8 @@ Inside the TUI, `/provider` opens the guided provider manager.
 
 ### `wukong login`
 
-Authenticate through Device Login for the signed-in Free Loop allowance.
+Authenticate through Device Login for account features. Login does not gate a
+local BYOK Loop.
 
 ```bash
 wukong login
@@ -180,7 +178,6 @@ Role profiles are experimental.
 wukong roles list
 wukong roles show security
 wukong roles init my-role
-wukong --role security
 ```
 
 Enable them with `experimental.role_profiles` in `~/.wukong/config.toml` or
@@ -192,6 +189,7 @@ Inside the TUI:
 |---|---|
 | `/transform <role>` | Switch the active role |
 | `/transform list` | List available roles |
+| `/transform status` | Show the active role and model |
 | `/transform off` | Return to the default role |
 | `/swarm on` | Enable delegation mode |
 | `/swarm off` | Disable delegation mode |
@@ -225,7 +223,7 @@ If Auto blocks an action during a Loop, the Loop stops as
 ## Advanced diagnostics
 
 These commands remain available for diagnosis and CI. Loop runs them as
-internal layers, so they are not separate products or separate quotas.
+internal layers, so they are not separate products.
 
 ### `wukong verify`
 
@@ -282,7 +280,7 @@ wukong guard -- rm -rf ./tmp
 ```
 
 The TUI equivalents `/verify`, `/scan`, and `/proof` are hidden advanced
-commands. `/judge`, `/guard`, and `/report` remain visible utility commands.
+commands. `/judge` and `/guard` remain visible utility commands.
 
 ## Updates
 

@@ -11,9 +11,9 @@ permalink: /
 Wukong Code is a terminal AI coding agent built around one workflow:
 **Goal → Write → Check → Review → Fix**.
 
-[Install v0.0.16](#install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Install v0.0.17](#install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [Download Wukong Code](https://wukong.today/download){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View the release](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.16){: .btn .fs-5 .mb-4 .mb-md-0 }
+[View the release](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
@@ -24,7 +24,7 @@ Wukong Code is a terminal AI coding agent built around one workflow:
 > checks, reviews from a fresh read-only context, and fixes blocking findings.
 
 {: .note }
-> **Stop instead of drift** — v0.0.16 keeps the goal fixed, remembers earlier
+> **Stop instead of drift** — v0.0.17 keeps the goal fixed, remembers earlier
 > blockers, and stops with a clear reason when another iteration would repeat
 > the same work.
 
@@ -39,7 +39,7 @@ Wukong Code is a terminal AI coding agent built around one workflow:
 
 {: .note }
 > **BYOK** — choose your provider and model API. Wukong does not require a local
-> model. Device Login is only for the Free Loop allowance and account state.
+> model. Device Login is optional and does not gate local Loops.
 
 ## Install
 
@@ -51,7 +51,7 @@ wukong --version
 ```
 
 Windows users can download the matching x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.16).
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.17).
 
 ## Start a Loop
 
@@ -77,6 +77,7 @@ Every Loop finishes as `PASS`, `NEEDS_WORK`, or `ERROR`. Start with the
 
 ## Current product boundary
 
-v0.0.16 is free and bring-your-own-key. It includes one Guest trial and 10
-signed-in Free Loop sessions per month. There is no public paid plan, Checkout,
-hosted report workflow, or managed model credit in this release.
+The v0.0.17 release keeps local Loops free and bring-your-own-key, without
+a Guest trial, sign-in requirement, or monthly account limit. The default
+per-run safety limit is 10 iterations and can be changed explicitly. There is
+no public paid plan, Checkout, hosted report workflow, or managed model credit.
