@@ -22,7 +22,7 @@ esac
 EOF
     chmod +x "$MOCK_BIN/uname"
 
-    # Mock curl: returns a fake latest release JSON, or writes a minimal zip
+    # Mock curl: fails GitHub API calls and writes release assets locally.
     cat > "$MOCK_BIN/curl" <<'EOF'
 #!/bin/sh
 OUTPUT=""
@@ -38,9 +38,9 @@ done
 
 echo "$URL" >> "$TEST_DIR/curl.log"
 
-if echo "$URL" | grep -q "releases/latest"; then
-    echo '{"tag_name":"v0.0.10"}'
-    exit 0
+if echo "$URL" | grep -q "api.github.com"; then
+    echo 'GitHub API rate limit exceeded' >&2
+    exit 22
 fi
 
 if echo "$URL" | grep -q "/download/"; then
@@ -73,13 +73,16 @@ teardown() {
     rm -rf "$TEST_DIR"
 }
 
-@test "installs the latest release by default" {
+@test "installs the latest release without calling the rate-limited GitHub API" {
     run ./install.sh
     [ "$status" -eq 0 ]
     [ -x "$HOME/.wukong/bin/wukong" ]
-    [[ "$output" == *"v0.0.10"* ]]
+    [[ "$output" == *"latest"* ]]
     [[ "$output" == *"wukong-darwin-x64"* ]]
     [[ "$output" == *"Verified SHA-256"* ]]
+    grep -q "/releases/latest/download/wukong-darwin-x64.zip" "$TEST_DIR/curl.log"
+    grep -q "/releases/latest/download/wukong-darwin-x64.zip.sha256" "$TEST_DIR/curl.log"
+    ! grep -q "api.github.com" "$TEST_DIR/curl.log"
 }
 
 @test "fresh installer pins the 0.0.15 candidate when explicitly requested" {

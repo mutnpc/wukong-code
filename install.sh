@@ -99,18 +99,16 @@ fi
 
 ARTIFACT="wukong-${TARGET}.zip"
 
-# Resolve version: prefer WUKONG_VERSION, otherwise fetch latest release tag.
+# Prefer an explicitly pinned release. The default path uses GitHub's stable
+# latest-download redirect so installs do not depend on the rate-limited API.
 if [ -n "${WUKONG_VERSION:-}" ]; then
   VERSION="$WUKONG_VERSION"
+  RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${VERSION}/${ARTIFACT}"
 else
-  VERSION="$(curl -fsSL "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest" | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')"
-  if [ -z "$VERSION" ]; then
-    echo "Failed to determine latest release version."
-    exit 1
-  fi
+  VERSION="latest"
+  RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest/download/${ARTIFACT}"
 fi
 
-RELEASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${VERSION}/${ARTIFACT}"
 CHECKSUM_URL="${RELEASE_URL}.sha256"
 
 echo "Installing Wukong Code ${VERSION} for ${TARGET}..."
