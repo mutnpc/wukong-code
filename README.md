@@ -1,40 +1,38 @@
 # Wukong Code
 
-> **Give Wukong a goal. It loops until the change is ready.**
+> **Your AI coding agent says it's done. Wukong makes it prove it.**
 
-Wukong Code is a terminal AI coding agent built around one workflow:
-**Goal → Write → Check → Review → Fix**.
+Give Wukong a goal. It writes the change, runs your project's own tests, type
+checks, lint, and build, reviews the result from a fresh context, and fixes
+what fails. It keeps looping until the checks pass, or stops and tells you
+exactly what is blocking.
 
-The current release is
-**[v0.1.1](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1)**.
-It is free and bring-your-own-key (BYOK).
+<!-- TODO: 30–60s unedited terminal recording of one real /loop (fail → fix → PASS) -->
 
-The default install sections below describe that stable binary. The immutable
-[`v0.1.0-rc.1`](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0-rc.1)
-prerelease remains available as the candidate evidence snapshot. Check
-`wukong --version` when exact installed behavior matters.
+```bash
+curl -fsSL https://wukong.today/install.sh | sh
+wukong provider   # add your own model API key
+wukong            # then type: /loop add input validation to the signup form
+```
 
-Version 0.1.1 keeps one controllable, recoverable, explainable local Loop and
-hardens session recovery, provider imports, explicit updates, plugin
-installation, workspace check discovery, and local Web interaction. It remains
-free, local-first, and BYOK. Full multi-layer coverage schema replacement,
-direct-shell content/PATH attestation, and a provider pricing database are
-deferred.
+Free · no account · bring your own API key · macOS, Linux, Windows ·
+current release **[v0.1.1](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1)**
 
 ## Why Wukong
 
-- **Loop until ready** — keep one goal and Finish Line fixed while Wukong
-  writes, checks, reviews, and fixes.
-- **Run repository checks** — use the project's available tests, type checks,
-  lint, build, and review policy.
-- **Review complete evidence** — preserve distinct risk findings across files,
-  lines, and evidence locations.
-- **Resume unfinished work** — continue local Wukong, Codex, Claude Code,
-  Cursor, Kimi Code, or Grok sessions as read-only imported context.
-- **Return clear outcomes** — a completed Gate ends as `PASS`, `NEEDS_WORK`,
-  or `ERROR`; `/loop stop` and a headless interruption before a Gate verdict
-  are `STOPPED_BY_USER`.
-- **Use your model provider** — configure the API key and model you want.
+- **"Done" means the checks passed.** A Loop only ends in `PASS` when your
+  repo's checks ran fresh and a separate review found nothing blocking.
+  Otherwise you get `NEEDS_WORK` with the reason, or `ERROR`. Never a silent
+  "looks good".
+- **Pick up where another agent stopped.** Codex, Claude Code, Cursor, Kimi
+  Code, or Grok ran out mid-task? `/resume codex` (or `claude`, `cursor`,
+  `kimi`, `grok`) brings that session in as read-only context and continues
+  against your repo as it is now.
+- **You set the limits first.** Before the first edit you approve the goal,
+  the checks, and the call/token budget. If progress stalls, Wukong stops and
+  explains why instead of burning your key.
+- **Your key, your provider.** Your code and check results are not uploaded to
+  Wukong. Model requests go only to the provider you configure.
 
 ## What's new in v0.1.1
 
@@ -50,6 +48,11 @@ Loop while retaining the command surface and local BYOK product boundary of
   verification, disabled-first installation, and atomic rollback;
 - project checks come only from real root or workspace-member declarations with
   explainable provenance.
+
+The immutable
+[`v0.1.0-rc.1`](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0-rc.1)
+prerelease remains available as the candidate evidence snapshot. Check
+`wukong --version` when exact installed behavior matters.
 
 ## Install
 
