@@ -4,8 +4,8 @@
 
 Give Wukong a goal. It writes the change, runs your project's own tests, type
 checks, lint, and build, reviews the result from a fresh context, and fixes
-what fails. It keeps looping until the checks pass, or stops and tells you
-exactly what is blocking.
+what fails. Within the limits you approve, it loops until the checks pass, or
+stops and tells you exactly what is blocking.
 
 <!-- TODO: 30–60s unedited terminal recording of one real /loop (fail → fix → PASS) -->
 
