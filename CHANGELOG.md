@@ -372,7 +372,19 @@ Wukong Code 0.0.11 improved terminal evidence, release announcements, and Loop s
 - macOS x64 build by cross-compiling on `macos-latest` Apple Silicon runners with a target-architecture Node.js SEA base binary.
 - Public release publish job failing due to missing `WUKONG_PUBLIC_RELEASE_TOKEN` repository secret.
 
-## [0.0.1] - 2026-07-03
+## [0.0.2] - 2026-07-03
+
+### Added
+- Add TUI `/verify`, `/scan`, and `/guard` commands and a verification agent on top of the existing CLI verification suite.
+
+### Changed
+- Rebrand the product as Wukong Code: npm package `@wukong.today/code`, runtime system prompt, ACP agent identity, and public release repository `mutnpc/wukong-code`.
+- Build native binaries with Node 26.4.0 and include the session visualizer web assets.
+
+Versions 0.0.3 and 0.0.4 were not published. The internal `v0.0.3` tag only
+reverted a CI runner change; the next public release is 0.0.5.
+
+## [0.0.1] - 2026-07-02
 
 ### Added
 - Initial public release of Wukong Code as a terminal AI coding agent.

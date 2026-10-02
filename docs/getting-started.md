@@ -123,13 +123,13 @@ checks execute), short-lived broker challenge, and run-scoped provider consent
 required by the current workspace. A bare headless command fails closed when
 those decisions are missing; it never silently accepts them for you.
 
-### A normal prompt is not a Loop verdict (development preview)
+### A normal prompt is not a Loop verdict
 
 ```bash
 wukong -p "summarize this repository"
 ```
 
-The current development checkout prints a Run preflight, writer-iteration and
+Wukong prints a Run preflight, writer-iteration and
 running-tool activity, and a final `run.summary` in addition to model prose.
 `Outcome COMPLETED` or exit `0` means only that the prompt turn ended normally;
 it is not `PASS`. The summary says whether checks or durable Loop evidence were
@@ -138,7 +138,7 @@ action. If it reports `provider_outcome_unknown`, the resume command is omitted:
 reconcile the request ID/idempotency key with provider logs or billing before
 starting another request.
 
-## What you should see (development preview)
+## What you should see
 
 The primary user flow is **input → execution → evidence → disposition**:
 
@@ -305,7 +305,7 @@ wukong login
 wukong logout
 ```
 
-**Development preview:** logout first attempts remote refresh-token revocation
+Logout first attempts remote refresh-token revocation
 and then cleans local account credentials. A network, rate-limit, or server
 failure is reported as remote state `unknown`, not as confirmed revocation;
 local cleanup still proceeds when possible. It does not remove BYOK provider

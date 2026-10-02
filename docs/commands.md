@@ -72,7 +72,7 @@ wukong -p "explain the project structure"
 Headless prompt mode defaults to guarded Auto. Use `--output-format
 stream-json` for machine-readable event output.
 
-**Development preview:** the current checkout prints a Run preflight,
+Wukong prints a Run preflight,
 writer-iteration and running-tool activity, and a final `run.summary` in
 addition to model prose. `Outcome COMPLETED` or exit `0` is not Loop `PASS`.
 The summary reports checks/evidence, workspace attribution when provable, and
@@ -117,7 +117,7 @@ transmission on the user's behalf.
 | `--dry-run` | Print the complete Finish Line proposal without creating trust, contract, or run state |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-**Development preview:** the current Loop confirms and freezes the Finish Line,
+The Loop confirms and freezes the Finish Line,
 required checks or versioned no-check decision, workspace identity, trust, Gate
 approval, selected verification criteria, broker scope, and exact BYOK review
 destination before the Loop starts. The TUI first renders one editable summary
@@ -145,7 +145,7 @@ Every review must account for earlier blockers. Repeated identical blockers
 trigger one fresh read-only strategy; if that still makes no progress, the Loop
 returns `NEEDS_WORK/no_progress`.
 
-**Development preview result contract:** Loop results and exit codes for a
+**Result contract:** Loop results and exit codes for a
 final durable `loop.result`:
 
 | Result | Exit code | Meaning |
@@ -230,7 +230,7 @@ with Google or GitHub. Login does not replace the model provider API key used fo
 inference. The authenticated Wukong model catalog currently returns no hosted
 models, and an empty catalog is a successful account connection.
 
-### `wukong logout` (development preview)
+### `wukong logout`
 
 Disconnect the optional Wukong account without changing the active BYOK model
 provider:

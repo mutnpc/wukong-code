@@ -102,7 +102,7 @@ to the same command. Missing decisions fail closed:
 wukong loop "add input validation to the signup form" --dry-run
 ```
 
-**Development preview:** before a Loop starts, one Preflight summary shows the
+Before a Loop starts, one Preflight summary shows the
 Goal, Done when, Must not rules, exact checks, review criteria, Writer/Reviewer,
 sanitized provider origin, pre-existing Git changes, permission mode, outbound
 scope and payload limits, approval order, terminal handling, and iteration
@@ -135,7 +135,7 @@ Each Loop keeps one user-owned target:
 4. Fix blocking findings against the same goal.
 5. Pass, stop with a clear blocker, or report an execution error.
 
-### Development preview: result handling
+### Result handling
 
 A terminal summary separates decisive evidence, pre-existing changes,
 Wukong-touched/added/deleted files, unknown attribution, checks,
@@ -163,13 +163,14 @@ successful dry-run or another command exiting `0` is not `PASS`.
 | `wukong review init` | Create `.wukong/review-policy.md` |
 | `wukong guard` | Inspect the command risk guard |
 | `wukong login` | Connect an optional Wukong account |
-| `wukong logout` | Development preview: revoke the optional account session and remove local account credentials |
+| `wukong logout` | Revoke the optional account session and remove local account credentials |
+| `wukong web` | Open the local Web UI (starts a loopback-only daemon when needed) |
 | `wukong doctor` | Validate local configuration |
 | `wukong upgrade` | Upgrade a native installation |
 
 Run `wukong --help` for the complete command and option list.
 
-**Development preview:** `wukong logout` and TUI `/logout` first try to revoke
+`wukong logout` and TUI `/logout` first try to revoke
 the stored refresh token at the configured OAuth host, then continue local
 account cleanup. Only a confirmed response is reported as remotely revoked.
 Network, rate-limit, or server failures leave remote state `unknown`, while

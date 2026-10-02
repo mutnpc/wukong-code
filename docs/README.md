@@ -19,7 +19,7 @@ check, review, and fix until the change passes or stops with a clear reason.
 | Document | Description |
 |---|---|
 | [Getting Started](./getting-started.md) | Install, configure a provider, run a Loop, and Resume local work |
-| [Commands](./commands.md) | Current CLI/TUI reference plus clearly labeled development previews for Preflight, result handling, and logout |
+| [Commands](./commands.md) | Current CLI/TUI reference, including Preflight, result handling, and logout |
 | [Configuration](./configuration.md) | Providers, permissions, Resume, updates, and privacy |
 | [Updates and announcements](./updates-and-announcements.md) | Native upgrades, package-manager updates, and TUI announcements |
 | [Changelog](../CHANGELOG.md) | Public release history |
